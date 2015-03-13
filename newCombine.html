@@ -1,0 +1,148 @@
+<html>
+<head>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="table.css">
+
+	<script type="text/javascript" src="d3/d3.js"></script>
+    <script type="text/javascript" src="d3/d3.geom.js"></script>
+    <script type="text/javascript" src="d3/d3.layout.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://hammerjs.github.io/dist/hammer.js"></script>
+	<script src="newController.js"></script>
+	<script src="tags.js"></script>
+	<script src="initDrawing.js"></script>
+	<script src="eventHandlers.js"></script>
+	<title>Multi-touch Ranking System</title>
+
+</head>
+
+<body>
+	<div id = 'touch'>
+		<div id = 'wrap'> 
+			<canvas id="myCanvas" >
+				Your browser does not support the HTML5 canvas tag.</canvas>
+		</div>
+	</div>
+	<div id = 'result'>
+		<div class="headText">Results:</div>
+		<div class="table--class">
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<div class="rankedItemImage">
+								<a href="">
+									<img src="iphone.jpg">
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="rankedItemInfo">
+								<a href="" title="test">this is the item info whefhaskdhsdfhjt sdhfhseth sdhfhse sdhe s</a>
+							</div>
+							<div class="priceBlock">
+								<strong class = "price">$100</strong>
+							</div>
+						</td>
+
+					</tr>
+					<tr>
+						<td>
+							<div class="rankedItemImage">
+								<a href="">
+									<img src="iphone.jpg">
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="rankedItemInfo">
+								<a href="" title="test">this is the item info whefhaskdhsdfhjt sdhfhseth sdhfhse sdhe s</a>
+							</div>
+							<div class="priceBlock">
+								<strong class = "price">$100</strong>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="rankedItemImage">
+								<a href="">
+									<img src="iphone.jpg">
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="rankedItemInfo">
+								<a href="" title="test">this is the item info whefhaskdhsdfhjt sdhfhseth sdhfhse sdhe s</a>
+							</div>
+							<div class="priceBlock">
+								<strong class = "price">$100</strong>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="rankedItemImage">
+								<a href="">
+									<img src="iphone.jpg">
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="rankedItemInfo">
+								<a href="" title="test">this is the item info whefhaskdhsdfhjt sdhfhseth sdhfhse sdhe s</a>
+							</div>
+							<div class="priceBlock">
+								<strong class = "price">$100</strong>
+							</div>
+						</td>
+
+					</tr>
+					<tr>
+												<td>
+							<div class="rankedItemImage">
+								<a href="">
+									<img src="iphone.jpg">
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="rankedItemInfo">
+								<a href="" title="test">this is the item info whefhaskdhsdfhjt sdhfhseth sdhfhse sdhe s</a>
+							</div>
+							<div class="priceBlock">
+								<strong class = "price">$100</strong>
+							</div>
+						</td>
+					</tr>
+					<tr>
+												<td>
+							<div class="rankedItemImage">
+								<a href="">
+									<img src="iphone.jpg">
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="rankedItemInfo">
+								<a href="" title="test">this is the item info whefhaskdhsdfhjt sdhfhseth sdhfhse sdhe s</a>
+							</div>
+							<div class="priceBlock">
+								<strong class = "price">$100</strong>
+							</div>
+						</td>
+
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script>
+		var controller = new Controller(document);
+	</script>
+</body>
+</html>

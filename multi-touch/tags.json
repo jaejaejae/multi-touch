@@ -1,0 +1,54 @@
+{
+	"Num": 5,
+	"Domains" : 
+		[
+			{
+				"Name": "domain1",
+				"Tags": {
+					"Rank1" : ["do1tag1"],
+					"Rank2" : ["do1tag2"],
+					"Rank3" : ["do1tag3"],
+					"Rank4" : ["do1tag4"]
+				}
+			},
+
+			{
+				"Name": "domain2",
+				"Tags": {
+					"Rank1" : ["do2tag1"],
+					"Rank2" : ["do2tag2"],
+					"Rank3" : ["do2tag3"],
+					"Rank4" : ["do2tag4"]
+				}
+			},
+			{
+				"Name": "domain3",
+				"Tags": {
+					"Rank1" : ["do3tag1"],
+					"Rank2" : ["do3tag2"],
+					"Rank3" : ["do3tag3"],
+					"Rank4" : ["do3tag4"]
+				}
+			},
+			{
+				"Name": "domain4",
+				"Tags": {
+					"Rank1" : ["do4tag1"],
+					"Rank2" : ["do4tag2"],
+					"Rank3" : ["do4tag3"],
+					"Rank4" : ["do4tag4"]
+				}
+			},
+			{
+				"Name": "domain5",
+				"Tags": {
+					"Rank1" : ["do5tag1"],
+					"Rank2" : ["do5tag2"],
+					"Rank3" : ["do5tag3"],
+					"Rank4" : ["do5tag4"]
+				}
+			}
+
+		]
+}
+

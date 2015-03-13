@@ -1,0 +1,160 @@
+<html>
+<head>
+<title>Li Yan</title>
+<style type="text/css">
+
+div {
+	position: absolute;
+    border: 2px solid;
+    border-radius: 15px;
+    white-space: wrap;
+    max-width: 150px;
+    text-align: center;
+	    padding-left: 10px;
+	    padding-right: 10px;
+	    padding-top: 10px;
+	    padding-bottom: 10px;
+
+
+}
+
+#domain{
+	position: relative;
+	border: 2px solid;
+	max-width: 300px;
+	height: 300px;
+}
+.easeClass {
+    -webkit-transition: left ease 3s;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+<div id = 'domain'>
+	<div id='obj1' class = 'easeClass'>
+		Obj
+	</div>
+	<div id='obj2' class = 'easeClass'>
+		This is a longer Obj
+	</div>
+	<div id='obj3' class = 'easeClass'>one more object nenenenen!</div>
+</div>
+
+<script type="text/javascript">
+var elements=[];
+var colors = [];
+var zIndex = [];
+for(i=1;i<=3;i++){
+	_ele = eleId('obj'+i);
+	elements[i-1] = _ele;
+	colors[i-1] = randCol();
+	zIndex[i-1] = i;
+//	_ele.style.background = colors[i-1];
+	init(_ele,i);
+	addListener(_ele, i-1);
+
+}
+var numElem = elements.length;
+var object1 = eleId('obj1');
+var object2 = eleId('obj2');
+
+function random(n){
+	return Math.floor(Math.random()*n);
+}
+function getCol(r,g,b){
+	return 'rgb('+r+','+g+','+b+')';
+}
+function randCol(){
+	return getCol(random(255),random(255),random(255));
+}
+
+function init(object, index){
+	object.style.left = '50px';
+	object.style.top = '50px';
+	object.style.zIndex = index;
+}
+
+
+function eleId(idString){
+	return document.getElementById(idString);
+}
+
+function swapZindex(object, index){
+	var topObj;
+    for (var i = 0; i < zIndex.length; i++) {
+    	console.log(zIndex[i]);
+    	if(zIndex[i] == numElem){
+    		var topObj = elements[i];
+    		break;
+    	}
+    };
+ //   console.log(object.style.zIndex);
+//	console.log(topObj.style.zIndex);
+	var curObjZindex = object.style.zIndex;
+	zIndex[index] = numElem;
+	zIndex[i] = curObjZindex;
+	topObj.style.zIndex = curObjZindex;
+	object.style.zIndex = numElem;
+	console.log(object.style.zIndex);
+	console.log(topObj.style.zIndex);
+}
+
+function addListener(object, index){
+	object.addEventListener('touchstart', function(event){
+		
+		 if (event.targetTouches.length == 1) {
+		    var touch = event.targetTouches[0];
+		    // Place element where the finger is
+		    object.style.cssText = 'text-shadow: 5px 5px 5px #4C001F';
+		    object.style.boxShadow = '10px 10px 5px #888888';
+		    object.style.background = colors[index];
+
+		    //swap zIndex
+		    swapZindex(object,index);
+
+		    object.style.left = touch.pageX - object.clientWidth/2 + 'px';
+		    object.style.top = touch.pageY - object.clientHeight/2 + 'px';
+		 }
+		event.preventDefault();
+	},false);
+
+
+	object.addEventListener('touchmove', function(event){
+		event.preventDefault();
+		if (event.targetTouches.length == 1) {
+			object.style.webkitTransition = 'left ease 0s';
+		    var touch = event.targetTouches[0];
+		    object.style.left = touch.pageX - object.clientWidth/2  + 'px';
+		    object.style.top = touch.pageY - object.clientHeight/2 + 'px';
+
+		}
+	},false);
+
+
+	object.addEventListener('touchend',function(event){
+		 event.preventDefault();
+		    // Place element where the finger is
+		var left = event.changedTouches[0].pageX - object.clientWidth/2  + 'px';
+		var right = event.changedTouches[0].pageY - object.clientHeight/2 + 'px';
+		object.style.webkitTransition = 'left ease 10s';
+		object.style.boxShadow = '0px 0px 0px #888888';
+		object.style.background = null;
+		object.style.left = left;
+		object.style.top = right;
+	//	console.log(event.changedTouches[0].pageX+' '+event.changedTouches[0].pageY );
+		
+		    
+	},false);
+}
+
+console.log(object2.style.left);
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+	"Domains":
+	[
+		{
+			"Name" : "dual",
+			"Tags": [{
+							"Name" : "no",
+							"OldRank" : 1,
+							"NewRank" : 2
+						},
+						{
+							"Name" : "yes",
+							"OldRank" : 2,
+							"NewRank" : 1
+						}
+					]
+		},
+		{
+			"Name": "sensors",
+			"Tags": [
+						{
+							"Name" : "Accelerometer",
+							"OldRank" : 1,
+							"NewRank" : 2
+				  		},
+				  		{
+				  			"Name" : "Proximilty",
+							"OldRank" : 2,
+							"NewRank" : 2
+				  		},
+				  		{
+				  			"Name" : "Compass",
+							"OldRank" : 3,
+							"NewRank" : 4
+				  		},
+				  		{
+				  			"Name" : "gero",
+							"OldRank" : 4,
+							"NewRank" : 3
+				  		}
+					]
+
+		}
+			
+	]
+}
