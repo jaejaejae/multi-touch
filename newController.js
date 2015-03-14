@@ -21,5 +21,5 @@ Controller.prototype.initialPhase = function(){
     this.visualizer = new Visualizer();
     this.communicator.init();
     var rankingWithResultsObj = this.communicator.initJsonObj;
-    this.visualizer.init(communicator.initJsonObj);
+    this.visualizer.init(this.communicator.initJsonObj);
 }
