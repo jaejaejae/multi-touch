@@ -7,14 +7,16 @@
                   'rgba(199,149,255,0.6)',
                   'rgba(152,17,217,0.6)'];
  var rankOpacity = [0.5, 0.5, 0.5, 0.5];
- var canvas = document.getElementById('myCanvas');
- var context = canvas.getContext('2d');
+ var canvas,context;
+ var tagsObj;
 
  function Drawer(n, tags){
       this.n = n; 
      // this.text = text;
       this.length = 0;
       this.tags = tags;//pased json object
+      canvas = document.getElementById('myCanvas');
+      context = canvas.getContext('2d');
  }
 
 
@@ -23,7 +25,21 @@
       this.length = length;
   }
 
+function fitToContainer(canvas){
+  // Make it visually fill the positioned parent
+  canvas.style.width ='98%';
+  canvas.style.height='98%';
+  // ...then set the internal size to match
+  canvas.width  = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
 
+
+function init(){
+  canvas = document.getElementById('myCanvas');
+  context = canvas.getContext('2d');
+  fitToContainer(canvas);
+}
 
 
 Drawer.prototype.draw = function(){
@@ -32,17 +48,22 @@ Drawer.prototype.draw = function(){
 
       this.init();
 
-      this.drawCircles(this.length, this.context);
+      this.drawCircles(this.length, context);
 
-	this.drawLines(this.canvas.width/2, this.canvas.height/2,this.length, this.context);
+	    this.drawLines(canvas.width/2, canvas.height/2,this.length, context);
 
       this.drawDomainName();
+
+      tagsObj = this.drawTagsDomain(this.length, this.n,context);
+
+      createDiv();
 	  
-      return new answer(this.drawTagsDomain(this.length, this.n,context),this.length);
+     // return new answer(this.drawTagsDomain(this.length, this.n,context),this.length);
 }
 
 
 Drawer.prototype.init =  function(){
+    init();
       var n = this.n
    //   context.beginPath();
       context.textAlign = 'left';
@@ -52,7 +73,7 @@ Drawer.prototype.init =  function(){
       this.length = Math.min(centerY,centerX) - 10;
 
  // translate context to center of canvas
-      this.context.translate(centerX, centerY);
+      context.translate(centerX, centerY);
 //	  this.drawLines(centerX, centerY, length, context);
     //  return length;
 }
@@ -69,7 +90,7 @@ Drawer.prototype.drawLines = function(centerX,centerY,length,context){
 }
 
 Drawer.prototype.drawTagsSingle = function(indexDomain, indexRank, ranks){
-      var tagsObj = [];
+      var tagsObjSingle = [];
       var startAngle = 2* Math.PI/this.n * indexDomain;
       var startLength = this.length/4 * indexRank + this.length/8;
       var unitAngle = 2* Math.PI/(this.n * (ranks.length+1));
@@ -80,11 +101,11 @@ Drawer.prototype.drawTagsSingle = function(indexDomain, indexRank, ranks){
             x = Math.cos(startAngle + unitAngle*(i+1)) * startLength;
             y = Math.sin(startAngle + unitAngle*(i+1)) * startLength;
 
-            this.context.font = 'bold 12px Helvetica';
+            context.font = 'bold 12px Helvetica';
             if(indexRank == -1) color = 'red';
             else color = 'black';
-            var temp = new Tags(this.n, this.context.canvas, x,y,color,ranks[i], this.document, indexDomain, indexRank, this.length );
-            tagsObj.push(temp);
+            var temp = new Tags(this.n, canvas, x,y,color,ranks[i], document, indexDomain, indexRank, this.length );
+            tagsObjSingle.push(temp);
       
        //     tagsObj[i].drawToContext(this.context, this.length/4); //dynamic size of the text
       //      temp.x -= temp.width/2;
@@ -95,7 +116,7 @@ Drawer.prototype.drawTagsSingle = function(indexDomain, indexRank, ranks){
 
       };
 
-      return tagsObj;
+      return tagsObjSingle;
 }
 
 
@@ -103,7 +124,7 @@ Drawer.prototype.drawTagsSingle = function(indexDomain, indexRank, ranks){
 Drawer.prototype.drawTagsDomain = function(length, n, ctx){
      // var tags = JSON.parse(this.text);
       var domains = [];
-      var tagsObj = [4]; 
+      //var tagsObj = [4]; 
       for (var i = 0; i < n; i++) {
             var singleDomain = [];
             for (var j = 0; j < 4; j++) {
@@ -175,25 +196,7 @@ Drawer.prototype.drawLine = function(x,y,length, ctx){
 	ctx.stroke();
 }
 
-// Drawer.prototype.createDiv = function (tag){
-           
-//       var top = context.canvas.height/2 + tag.y;
-//       var left = context.canvas.width/2 + tag.x;
-//       var div = this.document.createElement("div");
-//       div.classList.add('tag');
-//       div.style.width = tag.width + 'px';
-//    //   div.style.height = tag.size +'px';
-//       div.style.color = tag.color;
-//       div.innerHTML = tag.text;
-//       div.style.left = left;
-//       div.style.top = top;
-//       div.style.position = 'absolute';
-//       div.style.fontSize = tag.size +'px';
-//       div.style.backgroundColor = randColor[tag.domain] + rankOpacity[tag.rank-1]+ ')';
-//       tagsDiv.push(div);
-//       return div;
 
-// }
           
 
 function random(n){
@@ -258,3 +261,34 @@ function drawCircularText(circle, string, startAngle, endAngle){
 
 
 
+function createDiv(){
+    var wrapDiv = document.getElementById('wrap');
+    for (var i = 0; i < tagsObj.length; i++) {
+      for (var j = 0; j < tagsObj[i].length; j++) {
+        for (var k = 0; k < tagsObj[i][j].length; k++) {
+          var tag = tagsObj[i][j][k];
+          var div = tag.div;
+          wrapDiv.appendChild(div);
+          addListener(tag);
+        };
+      }}
+}
+
+
+function addListener(tag){
+  object = tag.div;
+  var range = new rangeTangent(tag.n);
+  object.addEventListener('touchstart', function(event){
+      touchStartHandler(tag, event);
+  },false);
+
+
+  object.addEventListener('touchmove', function(event){
+    tagsObj = touchMoveHandler(range, tag, tagsObj, event);
+  },false);
+
+
+  object.addEventListener('touchend',function(event){
+     tagsObj = touchEndHandler(tagsObj, tag, event);
+  },false); 
+}

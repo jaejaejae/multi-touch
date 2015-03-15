@@ -148,7 +148,7 @@ Tags.prototype.createDiv = function (tag){
       div.style.fontSize = tag.size +'px';
   //    div.style.backgroundColor = randColor[tag.domain] + rankOpacity[tag.rank-1]+ ')';
       div.style.backgroundColor = randColor[tag.domain];
-      tagsDiv.push(div);
+    //  tagsDiv.push(div);
       return div;
 
 }
