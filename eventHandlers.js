@@ -134,7 +134,7 @@ function touchStartHandler(tag, event){
      //   var canvasPoint = pageToCanvas(touch.pageX, touch.pageY);
      //   updateTagCordinate(tag, canvasPoint);
      	disPageToCancasDiv = {x:touch.pageX - abstractNumberFromStyle(tag.div.style.left), y:touch.pageY - abstractNumberFromStyle(tag.div.style.top)};
-        tag.originalRank = tag.updateRank(length);
+        tag.originalRank = tag.updateRank();
         tag.lastRank = tag.originalRank;
         tag.updateAngle();
         }
@@ -148,7 +148,7 @@ function touchMoveHandler(range, tag, tagsObj, event){
       object.style.webkitTransition = 'left ease 0s';
         var touch = event.targetTouches[0];
         var posit = insideDomain(range, tag, touch.pageX, touch.pageY); //posit is the final position
-        tag.rank = tag.updateRank(length);  //update rank
+        tag.rank = tag.updateRank();  //update rank
         //put the tag in the correct location(touch point)
 	    object.style.left = posit.x + 'px';
 	    object.style.top = posit.y + 'px';
@@ -422,7 +422,7 @@ function eventlySpreadInRang(all, rank, tag, tagsObj, startIndex, endIndex, star
 	var array = tagsObj[domain][rank-1];
 	//var n = array.length;
 	var n = endIndex - startIndex + 1;
-	var unitLength = length/4;
+	var unitLength = tag.length/4;
 	var distance = unitLength*(rank-1) + unitLength/2; //center distance
 
 	var unitAngle = (endAngle - startAngle)/(n+1);
@@ -490,7 +490,7 @@ function leftCollisionResolve(tag, tagsObj, i){
 	var rank = tag.rank;
 	var domain = tag.domain;
 	var array = tagsObj[domain][rank -1];
-	var distance = length/4*(rank-1) + length/8;
+	var distance = tag.length/4*(rank-1) + tag.length/8;
 	var collidedRect = array[i];
 	//evently spread 0 to i
 //	if(tag.angle > collidedRect.angle){
@@ -514,7 +514,7 @@ function rightCollisionResolve(tag, tagsObj, i){
 	var rank = tag.rank;
 	var domain = tag.domain;
 	var array = tagsObj[domain][rank -1];
-	var distance = length/4*(rank-1) + length/8;
+	var distance = tag.length/4*(rank-1) + tag.length/8;
 	var collidedRect = array[i];
 	//evently spread i to end
 	//if(tag.angle < collidedRect.angle){

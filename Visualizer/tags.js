@@ -99,14 +99,14 @@ Tags.prototype.drawToContext = function(theContext, maxLength) {
 	//theContext.fillText(this.text, x,y,maxLength);
 }
 
-Tags.prototype.updateRank = function(length){	
+Tags.prototype.updateRank = function(){	
 	//take center as x and y
 	var x = this.x + this.width/2;
 	var y = this.y + this.size/2;
 	var dis = Math.sqrt(x*x + y * y); //the distance from the tag center to canvas center
-	if(dis >= length) return 4;
+	if(dis >= this.length) return 4;
 	for (var i = 0; i < 4; i++) { //4 range
-		if(dis >= length/4 * i && dis < length/4 *(i+1)){
+		if(dis >= this.length/4 * i && dis < this.length/4 *(i+1)){
 			return (i+1);
 			//return;
 		}
