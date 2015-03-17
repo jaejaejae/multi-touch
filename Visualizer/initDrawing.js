@@ -13,10 +13,10 @@
  function Drawer(n, tags){
       this.n = n; 
      // this.text = text;
-      this.length = 0;
+      this.length = Math.min(canvas.height/2,canvas.width/2) - 10;
       this.tags = tags;//pased json object
-      canvas = document.getElementById('myCanvas');
-      context = canvas.getContext('2d');
+/*      canvas = document.getElementById('myCanvas');
+      context = canvas.getContext('2d');*/
  }
 
 
@@ -25,28 +25,14 @@
       this.length = length;
   }
 
-function fitToContainer(canvas){
-  // Make it visually fill the positioned parent
-  canvas.style.width ='98%';
-  canvas.style.height='98%';
-  // ...then set the internal size to match
-  canvas.width  = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-}
 
-
-function init(){
-  canvas = document.getElementById('myCanvas');
-  context = canvas.getContext('2d');
-  fitToContainer(canvas);
-}
 
 
 Drawer.prototype.draw = function(){
       
     //  this.generateRandColor();
 
-      this.init();
+  //    this.init();
 
       this.drawCircles(this.length, context);
 
@@ -63,19 +49,7 @@ Drawer.prototype.draw = function(){
 
 
 Drawer.prototype.init =  function(){
-    init();
-      var n = this.n
-   //   context.beginPath();
-      context.textAlign = 'left';
-      context.textBaseline = 'Bottom';
-      var centerX = canvas.width/2;
-      var centerY = canvas.height/2;
-      this.length = Math.min(centerY,centerX) - 10;
-
- // translate context to center of canvas
-      context.translate(centerX, centerY);
-//	  this.drawLines(centerX, centerY, length, context);
-    //  return length;
+      this.length = Math.min(canvas.height/2,canvas.width/2) - 10;
 }
 
 Drawer.prototype.drawLines = function(centerX,centerY,length,context){

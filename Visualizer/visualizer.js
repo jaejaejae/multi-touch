@@ -3,17 +3,14 @@ function Visualizer(){
 }
 
 Visualizer.prototype.init = function(rankingWithResultObj){
-	if(rankingWithResultObj != null) {     
+	if(rankingWithResultObj != null) {  
+		initializationDriver(); //initialize canvas, context  
 	    this.drawer = new Drawer(rankingWithResultObj.Num, rankingWithResultObj.Domains);
-	    this.drawer.draw();
-	    // tagsObj = anw.tagsObj;
-	    // length = anw.length;
-	    // createDiv();
+	    this.drawer.draw(); //start drawing
 	    parseResults(rankingWithResultObj.Results);
   	}
 	else{
-		var touchdiv = document.getElementById("touch");
-		touchdiv.innerHTML = "error in laoding the json file from server";
+		alert("error in laoding the json file from server");
 	}
 }
 
