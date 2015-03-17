@@ -43,3 +43,12 @@ Communicator.prototype.buildConnection = function(){
 //       this.initJsonObj = JSON.parse(data);
 //   },false);
 // }
+
+
+Communicator.prototype.secondPhase = function(jsonObj){
+  var jsonToSend = JSON.stringify(jsonObj);
+  //send to server
+  //waiting for response from the server
+  //return back the responsed parsed json object
+}
+

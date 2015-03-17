@@ -95,7 +95,7 @@ rangeTangent.prototype.checkCordinates = function(i, x, y) {
 	// body...
 };
 
-function dragHandler(event, ctx, element, tagsObj){
+/*function dragHandler(event, ctx, element, tagsObj){
 		var touch = event.targetTouches;
 		 
 		      // Place element where the finger is
@@ -108,9 +108,9 @@ function dragHandler(event, ctx, element, tagsObj){
 	for (var i = 0; i < tagsObj.length; i++) {
 		console.log(tagsObj[i][0].x, tagsObj[i][0].y);
 		console.log(tagsObj[i][0].hitTest(touchX,touchY));
-	/**	if(tagsObj[i][0].hitTest(touch[0].pageX,touch[0].pageY)){
+	*	if(tagsObj[i][0].hitTest(touch[0].pageX,touch[0].pageY)){
 			console.log(touch[0].pageX, touch[0].pageY);
-		}*/
+		}
 	};
 }
 
@@ -125,7 +125,7 @@ function dragStartHandler(event, ctx, element, tagsObj){
 	var touchX = touch[0].pageX - 20 - (element.width + element.clientLeft)/2;
 	var touchY = touch[0].pageY - 20 - (element.height + element.clientTop)/2;
 	console.log("tansform touch point in canvas", touchX, touchY);
-}
+}*/
 
 function touchStartHandler(tag, event){
 	var object = tag.div;
@@ -177,6 +177,7 @@ wrapDiv.appendChild(div);
 //tags obj contains all tags objects
 function touchEndHandler(tagsObj, tag, event){
 	var object = tag.div;
+	var nofingerFlag = false;
 	event.preventDefault();
         // Place element where the finger is
     var posit = centerToCanvas(tag.canvas, tag.x, tag.y);
@@ -190,7 +191,12 @@ function touchEndHandler(tagsObj, tag, event){
     sortByAngle(tag, tagsObj);
     eventlySpread(tag, tagsObj);
   //  console.log(event.changedTouches[0].pageX+' '+event.changedTouches[0].pageY );
-    return tagsObj;
+
+  	if(event.touches.length == 0){
+  		nofingerFlag = true; //all fingers are released
+  	}
+  //	alert(nofingerFlag);
+    return {obj: tagsObj, flag: nofingerFlag};
         
 }
 

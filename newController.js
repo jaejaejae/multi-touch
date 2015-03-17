@@ -23,3 +23,10 @@ Controller.prototype.initialPhase = function(){
     var rankingWithResultsObj = this.communicator.initJsonObj;
     this.visualizer.init(this.communicator.initJsonObj);
 }
+
+/*In the second phase, the Visualizer return back the updated object and
+	update back to the server through the Communicator.
+*/
+Controller.prototype.secondPhase = function(jsonObj){
+	this.communicator.secondPhase(jsonObj);
+}

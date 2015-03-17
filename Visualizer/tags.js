@@ -3,13 +3,13 @@
 
 function Tags(n, canvas, posX, posY, color, text, document, domain, rank, length) {
 		this.n = n;
-		this.x = posX;
-		this.y = posY;
+		this.x = posX; //x position relative to the canvas center
+		this.y = posY; //y position relative to the canvas center
 		this.divX = 0;
 		this.divY = 0;
 		this.color = color;
-		this.backColor = "";
-		this.size = 18; //default size 12
+		this.backColor = ""; //background color
+		this.size = 25; //default size 12
 		this.text = text;
 		this.width = 0;
 		this.div = document.createElement("div");
@@ -22,34 +22,21 @@ function Tags(n, canvas, posX, posY, color, text, document, domain, rank, length
 		this.serverRank = this.originalRank;//the rank that stored in server
 		this.angle = 0;
 		this.length = length;
-		this.drawToContext(context,this.length/4); 
-		this.x -= this.width/2;
-        this.y -= this.size/2;
-        this.div = this.createDiv(this);
-        this.updateAngle();
-        this.setBackgroundColor();
-
+				
+		this.init();
 }
 
+Tags.prototype.init = function(){
+	this.drawToContext(context,this.length/4); 
+	this.x -= this.width/2;
+    this.y -= this.size/2;
+    this.div = this.createDiv(this);
+    this.updateAngle();
+    this.setBackgroundColor();
+}
+
+
 Tags.prototype.updateAngle = function(){
-/*	var tan = this.y/this.x;
-	var angle = Math.atan(tan);
-	var startAngle = this.domain * 2*Math.PI/this.n;
-	var endAngle = startAngle + 2*Math.PI/this.n;
-	if(angle < 0){
-		angle += 2*Math.PI;
-		if(startAngle < angle && angle < endAngle)//whithin the range
-			this.angle = angle;
-		else
-			this.angle = angle - Math.PI;
-	}
-	else{
-		if(startAngle < angle && angle < endAngle)//whithin the range
-			this.angle = angle;
-		else
-			this.angle = angle + Math.PI;
-	}
-	*/
 	this.angle = this.getAngle(this.x, this.y, this.domain);
 }
 
