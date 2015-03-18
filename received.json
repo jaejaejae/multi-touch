@@ -1,74 +1,92 @@
 {
-	"Num": 7,
 	"Name": "phone",
 	"Domains":
 	[
 		{
 			"Name" : "dual",
-			"Tags": {
-				"Rank1":[{
-					"Name" : "no",
-					"NewRanking": 2
-					}
-				],
-				"Rank2":[{
-					"Name" : "yes",
-					"NewRanking": 2
-					}
-				]
-
-			}
+			"Tags": [
+						{
+							"Name" : "no",
+							"NewRanking": 2
+						},
+						{
+							"Name" : "yes",
+							"NewRanking": 2
+						}
+			]
+ 
 		},
+
 		{
 			"Name": "sensors",
-			"Tags":{
-				"Rank1":["Accelerometer"],
-				"Rank2":["Proximilty"],
-				"Rank3":["Compass"],
-				"Rank4":["gero"]
-				}
+			"Tags": [
+						{
+							"Name" : "Accelerometer",
+							"NewRanking": 3
+						},
+						{
+							"Name" : "gero",
+							"NewRanking": 1
+						},
+						{
+							"Name" : "Compass",
+							"NewRanking": 2
+						}
+
+			]	
 		},
+
 		{
 			"Name":"price",
-			"Tags":{
-				"Rank1":["4-7"],
-				"Rank2":["1-3"],
-				"Rank3":["8-10"]
-			}
+			"Tags": [
+						{
+							"Name" : "4-7",
+							"NewRanking": 3
+						},
+						{
+							"Name" : "8-10",
+							"NewRanking": 1
+						}
+			]
 		},
+
 		{
 			"Name": "talkT",
-			"Tags":{
-				"Rank1":["short"],
-				"Rank2":["moderate"],
-				"Rank3":["long"]
-			}
+			"Tags":[
+						{
+							"Name" : "short",
+							"NewRanking": 4
+						},
+						{
+							"Name" : "long",
+							"NewRanking": 1
+						}
+
+			]
 		},
+
 		{
 			"Name": "standby",
-			"Tags":{
-				"Rank1":["short"],
-				"Rank2":["long"],
-				"Rank3":["moderate"]
-			}
+			"Tags":[]
 		},
 		{
 			"Name": "colors",
-			"Tags":{
-				"Rank1":["Black","white"],
-				"Rank2":["silver"],
-				"Rank3":["gold"],
-				"Rank4":["red","blue"]
-			}
+			"Tags":[
+						{
+							"Name" : "silver",
+							"NewRanking": 4
+						},
+						{
+							"Name" : "gold",
+							"NewRanking": 1
+						}
+
+			]
 		},
+
 		{
 			"Name": "features",
-			"Tags":{
-				"Rank1":["Geo tagging"],
-				"Rank2":["touch focus"],
-				"Rank3":["Smile Detection"],
-				"Rank4":["Panorama"]
-			}
+			"Tags":[]
 		}
 		
 		

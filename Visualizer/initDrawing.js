@@ -9,6 +9,7 @@
  var rankOpacity = [0.5, 0.5, 0.5, 0.5];
  var canvas,context;
  var tagsObj;
+ var tagHashMap = {}; //hashmap. Key: text inside tags; Value: the tag object itself
 
 //constructor
 function Drawer(n, tags){
@@ -56,6 +57,7 @@ Drawer.prototype.drawTagsSingle = function(indexDomain, indexRank, ranks){
           else color = 'black';
           var temp = new Tags(this.n, canvas, x,y,color,ranks[i], document, indexDomain, indexRank, this.length );
           tagsObjSingle.push(temp);
+          tagHashMap[ranks[i]] = temp; //push the tag object into the hashmap with the key of its name
 
     };
 
@@ -253,3 +255,19 @@ function createDiv(){
      }
    },false); 
   }
+
+
+/*third phases. Redraw the tags with new ranking
+  updateObj is an array of objects which contains tags' new ranking in each domain
+*/
+Drawer.prototype.redraw = function(updateObj){
+    for (var i = 0; i < updateObj.length; i++) {
+      var tagsInRanki = updateObj[i].Tags;
+      for (var j = 0; j < tagsInRanki.length; j++) {
+        var tagName = tagsInRanki[j].Name;
+        var newRanking = tagsInRanki[j].NewRanking;
+        var tag = tagHashMap[tagName];
+        
+      };
+    };
+}

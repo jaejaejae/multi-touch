@@ -27,6 +27,16 @@ Visualizer.prototype.storeValues = function(rankingWithResultObj){
 }
 
 
+Visualizer.prototype.thirdPhase = function(newRankingWithResult){
+	if(newRankingWithResult != null){
+		this.drawer.redraw(newRankingWithResult.Domains);
+		parseResults(newRankingWithResult.Results);
+	}
+	else{
+		alert("no update from the server");
+	}
+}
+
 //the function called by the touchEnd event in initDrawing.js.
 function notifyUpdate(obj){
 	var backToServerJson = parseIntoJsonObj(obj);

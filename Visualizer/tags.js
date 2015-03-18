@@ -141,3 +141,17 @@ Tags.prototype.createDiv = function (tag){
 }
 
 
+//move tag to new ranking
+Tags.prototype.setToRanking = function(newRanking){
+	var preRanking = this.rank;
+	this.rank = newRanking;
+	this.originalRank = newRanking;
+	this.serverRank = newRanking;
+	//update tagsObj
+	tagsObj = updateTagObjs(preRanking, tag, tagsObj);
+	eventlySpreadRank(preRanking, tag, tagsObj);
+	eventlySpreadRank(newRanking, tag, tagsObj);
+	//update coordinate
+}
+
+
