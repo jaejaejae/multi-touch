@@ -148,9 +148,9 @@ Tags.prototype.setToRanking = function(newRanking){
 	this.originalRank = newRanking;
 	this.serverRank = newRanking;
 	//update tagsObj
-	tagsObj = updateTagObjs(preRanking, tag, tagsObj);
-	eventlySpreadRank(preRanking, tag, tagsObj);
-	eventlySpreadRank(newRanking, tag, tagsObj);
+	tagsObj = updateTagObjs(preRanking, this, tagsObj);
+	eventlySpreadRank(preRanking, this, tagsObj);
+	eventlySpreadRank(newRanking, this, tagsObj);
 	//update coordinate
 }
 

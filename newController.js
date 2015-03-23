@@ -28,5 +28,11 @@ Controller.prototype.initialPhase = function(){
 	update back to the server through the Communicator.
 */
 Controller.prototype.secondPhase = function(jsonObj){
-	this.communicator.secondPhase(jsonObj); //communicator will return the updated parsed json file back.
+	var parsedJsonObj = this.communicator.secondPhase(jsonObj); //communicator will return the updated parsed json file back.
+   // this.thirdPhase(parsedJsonObj);
+}
+
+
+Controller.prototype.thirdPhase = function(parsedJsonObj){
+    this.visualizer.thirdPhase(parsedJsonObj);
 }

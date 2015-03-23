@@ -267,7 +267,7 @@ Drawer.prototype.redraw = function(updateObj){
         var tagName = tagsInRanki[j].Name;
         var newRanking = tagsInRanki[j].NewRanking;
         var tag = tagHashMap[tagName];
-        
+        tag.setToRanking(newRanking);
       };
     };
 }
