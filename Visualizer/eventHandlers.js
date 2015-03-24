@@ -148,31 +148,47 @@ function touchMoveHandler(range, tag, tagsObj, event){
       object.style.webkitTransition = 'left ease 0s';
         var touch = event.targetTouches[0];
         var posit = insideDomain(range, tag, touch.pageX, touch.pageY); //posit is the final position
-        tag.rank = tag.updateRank();  //update rank
+        var newRank = tag.updateRank();  //update rank
         //put the tag in the correct location(touch point)
 	    object.style.left = posit.x + 'px';
 	    object.style.top = posit.y + 'px';
-	    updateTagCordinate(tag, posit);
-/*debug part---------
-var wrapDiv = document.getElementById('touch');
-var div = document.createElement('div');
-div.style.backgroundColor = 'black';
-div.style.color = 'white';
-div.innerHTML = tag.div.style.color;
-wrapDiv.appendChild(div);
+//check if the current rank exist the max number
 
-//end of debug part*/
-
-		//some update
-	    tag.updateColor();
-	    tag.updateAngle();
-	    sortByAngle(tag, tagsObj);
-	    updateTagObjsDuringMove(tag, tagsObj);
-	    tagsObj = collisionResolve(tag, tagsObj);
-	    tag.lastRank = tag.rank;
+		if(!isExistMaxNum(newRank, tag)){
+			//some update
+		    updateTagCordinate(tag, posit);
+			tag.rank = newRank;
+		    tag.updateColor();
+		    tag.updateAngle();
+		    sortByAngle(tag, tagsObj);
+		    updateTagObjsDuringMove(tag, tagsObj);
+		    tagsObj = collisionResolve(tag, tagsObj);
+		    tag.lastRank = tag.rank;
+		}
+		//else show warning
+		else if(newRank != tag.rank && isExistMaxNum(newRank, tag)){
+			showWarning(newRank);
+			resetBackToOriginal(tag);
+		}
     }
     return tagsObj;
 }
+
+function resetBackToOriginal(tag){
+	var lastRank = tag.rank;
+	tag.rank = tag.originalRank;
+	tagsObj = updateTagObjs(lastRank, tag, tagsObj);
+	eventlySpreadRank(tag.originalRank, tag, tagsObj); //////continue adding element to the original rank bug!!!!!!
+	//eventlySpreadRank(newRanking, this, tagsObj);
+}
+
+function showWarning(newRank){
+	var warningBar = $("#existWarining")[0];
+	warningBar.innerHTML = "Only maximun "+ Math.pow(2, newRank-1)+" tags are allowed in rank "+ newRank;
+	$("#existWarining").fadeIn("slow");
+	setTimeout(function(){ $("#existWarining").fadeOut("slow"); }, 1000);
+}
+
 
 //tags obj contains all tags objects
 function touchEndHandler(tagsObj, tag, event){
@@ -240,6 +256,31 @@ function insideDomain(range,tag, left, top){
 
 }
 
+//checking for rank limitation;
+function isExistMaxNum(newRank, tag){
+	var isExist = false;
+	switch(newRank){
+		case 1:
+			if(tagsObj[tag.domain][newRank-1].length >= 1)
+				isExist = true;
+			break;
+		case 2:
+			if(tagsObj[tag.domain][newRank-1].length >= 2)
+				isExist = true;
+			break;
+		case 3:
+			if(tagsObj[tag.domain][newRank-1].length >= 4)
+				isExist = true;
+			break;
+		case 4:
+			if(tagsObj[tag.domain][newRank-1].length >= 8)
+				isExist = true;
+			break;
+		default:
+			isExist = true; //invalid rank
+	}
+	return isExist;
+}
 
 
 function updateTagObjs(originalRank, tag, tagsObj){

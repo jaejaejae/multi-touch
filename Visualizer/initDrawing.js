@@ -193,15 +193,17 @@ Drawer.prototype.drawDomainName = function(){
 //draw the domain name as a circle shape around the domain
 function drawCircularText(circle, string, startAngle, endAngle){
   var radius = circle.radius,
-  angleDecrement = (startAngle - endAngle)/(string.length - 1),
+ // angleDecrement = (startAngle - endAngle)/(string.length - 1),
+  angleDecrement = -0.04,
   angle = startAngle,
   index = 0,
-  character;
+  character,
+  fontSize = Math.min(canvas.height,canvas.width)/38 ; //adjust the font size according to the canvas size
 
   context.save();
 
   context.fillStyle = 'rgba(0,0,0, 0.7)';
-  context.font = 12 + 'px Lucida Sans';
+  context.font = fontSize + 'px Lucida Sans';
 
   while(index < string.length){
     character = string.charAt(index);

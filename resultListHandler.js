@@ -1,6 +1,7 @@
 var tbody = document.getElementById("tableBody");
 
 function parseResults(resultsObj){
+	removeExistingResults();
 	for (var i = 0; i < resultsObj.length; i++) {
 		var row = document.createElement("tr");
 		var td =  document.createElement("td");
@@ -27,4 +28,10 @@ function parseResults(resultsObj){
 		row.appendChild(td);
 		tbody.appendChild(row);
 	};
+}
+
+function removeExistingResults(){
+	while (tbody.firstChild) {
+	    tbody.removeChild(tbody.firstChild);
+	}
 }

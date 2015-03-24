@@ -124,10 +124,15 @@ Tags.prototype.createDiv = function (tag){
       this.divY = context.canvas.height/2 + tag.y;
       this.divX = context.canvas.width/2 + tag.x;
       var div = document.createElement("div");
+   //   var span = document.createElement("span");
       div.classList.add('tag');
       div.style.width = tag.width + 'px';
-   //   div.style.height = tag.size +'px';
+   //   div.style.height = tag.width/3*2 + 'px';
+   //   div.style.lineHeight = div.style.height;
+      div.style.height = tag.size +'px';
       div.style.color = tag.color;
+    //  span.innerHTML = tag.text;
+ //     div.appendChild(span);
       div.innerHTML = tag.text;
       div.style.left = this.divX;
       div.style.top = this.divY;

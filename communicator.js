@@ -54,7 +54,7 @@ Communicator.prototype.secondPhase = function(jsonObj){
 
   //temp testing code
   
-  return tempConnection();
+  tempConnection();
 }
 
 
@@ -62,7 +62,7 @@ function tempConnection(){
   $.getJSON("/multi-touch/received.json", function(json) {
     console.log(json); // this will show the info it in firebug console
     var object = json; 
-    controller.thirdPhase(object);
+  //  controller.thirdPhase(object);
   });
 /*  var url = "received.json";
   var returnValue;
