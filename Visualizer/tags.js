@@ -66,7 +66,15 @@ Tags.prototype.getAngle = function(x, y, domain){
 
 Tags.prototype.measureDimension = function(theContext){
 	//this.size = theContext.measureText(this.text).height;
-	this.width = theContext.measureText(this.text).width;
+	
+	this.width = theContext.measureText(this.textDisplay).width;
+}
+
+Tags.prototype.textToDisplay = function() {
+	if(this.text.length > 5)//set to limitation of 5
+		this.textDisplay = this.text.substr(0,5);
+	else
+		this.textDisplay = this.text;
 }
 
 //The function below returns a Boolean value representing whether the point with the coordinates supplied "hits" the particle.
@@ -76,6 +84,7 @@ Tags.prototype.hitTest = function(hitX,hitY) {
 
 //A function for drawing the particle.
 Tags.prototype.drawToContext = function(theContext, maxLength) {
+	this.textToDisplay();
 	theContext.fillStyle = this.color;
 	do{
 		this.size--;
@@ -133,7 +142,7 @@ Tags.prototype.createDiv = function (tag){
       div.style.color = tag.color;
     //  span.innerHTML = tag.text;
  //     div.appendChild(span);
-      div.innerHTML = tag.text;
+      div.innerHTML = tag.textDisplay;
       div.style.left = this.divX;
       div.style.top = this.divY;
       div.style.position = 'absolute';

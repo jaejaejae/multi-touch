@@ -150,11 +150,11 @@ function touchMoveHandler(range, tag, tagsObj, event){
         var posit = insideDomain(range, tag, touch.pageX, touch.pageY); //posit is the final position
         var newRank = tag.updateRank();  //update rank
         //put the tag in the correct location(touch point)
-	    object.style.left = posit.x + 'px';
-	    object.style.top = posit.y + 'px';
+	    // object.style.left = posit.x + 'px';
+	    // object.style.top = posit.y + 'px';
 //check if the current rank exist the max number
 
-		if(!isExistMaxNum(newRank, tag)){
+	//	if(!isExistMaxNum(newRank, tag)){
 			//some update
 		    updateTagCordinate(tag, posit);
 			tag.rank = newRank;
@@ -164,12 +164,12 @@ function touchMoveHandler(range, tag, tagsObj, event){
 		    updateTagObjsDuringMove(tag, tagsObj);
 		    tagsObj = collisionResolve(tag, tagsObj);
 		    tag.lastRank = tag.rank;
-		}
+//		}
 		//else show warning
-		else if(newRank != tag.rank && isExistMaxNum(newRank, tag)){
-			showWarning(newRank);
+/*		else if(newRank != tag.rank && isExistMaxNum(newRank, tag)){
+			showWarning(newRank, tag.domain);
 			resetBackToOriginal(tag);
-		}
+		}*/
     }
     return tagsObj;
 }
@@ -179,14 +179,14 @@ function resetBackToOriginal(tag){
 	tag.rank = tag.originalRank;
 	tagsObj = updateTagObjs(lastRank, tag, tagsObj);
 	eventlySpreadRank(tag.originalRank, tag, tagsObj); //////continue adding element to the original rank bug!!!!!!
-	//eventlySpreadRank(newRanking, this, tagsObj);
+	eventlySpreadRank(lastRank, this, tagsObj);
 }
 
-function showWarning(newRank){
+function showWarning(newRank,domain){
 	var warningBar = $("#existWarining")[0];
-	warningBar.innerHTML = "Only maximun "+ Math.pow(2, newRank-1)+" tags are allowed in rank "+ newRank;
+	warningBar.innerHTML = "Maximun "+ Math.pow(2, newRank-1)+" tags are allowed in domain "+ domainNames[domain] +" rank "+ newRank;
 	$("#existWarining").fadeIn("slow");
-	setTimeout(function(){ $("#existWarining").fadeOut("slow"); }, 1000);
+	setTimeout(function(){ $("#existWarining").fadeOut("slow"); }, 2000);
 }
 
 
@@ -202,11 +202,17 @@ function touchEndHandler(tagsObj, tag, event){
     object.style.webkitTransition = 'ease 1s';
     object.style.left = posit.x + 'px';
     object.style.top = posit.y + 'px';
-  //  var tagsObj = updateTagObjs(tag.originalRank, tag, tagsObj);
     tag.updateAngle();
     sortByAngle(tag, tagsObj);
     eventlySpread(tag, tagsObj);
-  //  console.log(event.changedTouches[0].pageX+' '+event.changedTouches[0].pageY );
+
+
+	if(isExistMaxNum(tag)){
+		var oldRank = tag.rank;
+		showWarning(oldRank, tag.domain);
+		resetBackToOriginal(tag);
+	}
+
 
   	if(event.touches.length == 0){
   		nofingerFlag = true; //all fingers are released
@@ -257,23 +263,23 @@ function insideDomain(range,tag, left, top){
 }
 
 //checking for rank limitation;
-function isExistMaxNum(newRank, tag){
+function isExistMaxNum(tag){
 	var isExist = false;
-	switch(newRank){
+	switch(tag.rank){
 		case 1:
-			if(tagsObj[tag.domain][newRank-1].length >= 1)
+			if(tagsObj[tag.domain][tag.rank-1].length -1 >= 1)
 				isExist = true;
 			break;
 		case 2:
-			if(tagsObj[tag.domain][newRank-1].length >= 2)
+			if(tagsObj[tag.domain][tag.rank-1].length -1 >= 2)
 				isExist = true;
 			break;
 		case 3:
-			if(tagsObj[tag.domain][newRank-1].length >= 4)
+			if(tagsObj[tag.domain][tag.rank-1].length -1 >= 4)
 				isExist = true;
 			break;
 		case 4:
-			if(tagsObj[tag.domain][newRank-1].length >= 8)
+			if(tagsObj[tag.domain][tag.rank-1].length -1 >= 8)
 				isExist = true;
 			break;
 		default:
