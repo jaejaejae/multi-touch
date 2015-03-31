@@ -10,6 +10,7 @@ Communicator.prototype.run = function(){
 
 Communicator.prototype.init = function(){
 	this.initURL = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking/rest2?name=asdf";
+ // this.initURL= "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?init=true&name=phone&k=4";
 	this.initJsonObj = null;
 	this.buildConnection(); //return the JSON object with 
  // alert(this.initJsonObj);
