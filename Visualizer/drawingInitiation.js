@@ -36,4 +36,20 @@ function initializationDriver(){
 	canvasInitialization(); //resize canvas
 	contextInit(); //resize context
 	canvasTouchHandler(); //disable canvas from scrolling
+	toggleAddEvent();
+}
+
+
+function toggleAddEvent(){
+	 $('#switchContainer').on('change', function() {
+	 	if(Visualizer.MODE == PERMANENT_MODE){
+	 		Visualizer.MODE = ELASTIC_MODE;
+	 		runElastic();
+	 	}
+	 	else{
+	 		Visualizer.MODE = PERMANENT_MODE;
+	 		runPermanent();
+	 	}
+        
+    });
 }

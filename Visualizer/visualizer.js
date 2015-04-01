@@ -1,8 +1,11 @@
 var dataName = "";
 var domainNames = []; //an array of domain names
-const PERMANANT_MODE = 0,
+const PERMANENT_MODE = 0,
 	  ELASTIC_MODE = 1;
-Visualizer.MODE = PERMANANT_MODE;
+
+Visualizer.MODE = PERMANENT_MODE;
+
+
 
 function Visualizer(){
 	this.drawer = null;

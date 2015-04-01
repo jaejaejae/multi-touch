@@ -53,11 +53,11 @@ Communicator.prototype.secondPhase = function(jsonObj){
   this.backURL = this.URL+"name="+this.dataName+"&k="+this.numOfResults;
   alert(jsonToSend);
   //send to server
-  $.post(this.backURL,jsonToSend, function(data, status){
+  $.post(this.backURL, jsonToSend, function(data){
         alert("Data: " + data + "\nStatus: " + status);
         var object = data; 
         controller.thirdPhase(object);
-    },"json");
+    });
   //waiting for response from the server
   //return back the responsed parsed json object
 
