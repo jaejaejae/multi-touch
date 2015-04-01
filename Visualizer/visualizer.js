@@ -60,20 +60,34 @@ function parseIntoJsonObj(jsonObj){
 
 
 	for (var i = 0; i < jsonObj.length; i++) { //for each domain
-		var domainObj = {Name: domainNames[i],
-	              	 Tag: []};
+/*		var domainObj = {Name: domainNames[i],
+	              	 Tags: []};*/
+	    var tagsArray = [];
 		for (var j = 0; j < jsonObj[i].length; j++) { //for each rank
 			for (var k = 0; k < jsonObj[i][j].length; k++) { //for each tag
 				var tag = jsonObj[i][j][k];
-				var tagObj = {
-				  Name: tag.text,
-				  OldRank: tag.serverRank,
-				  NewRank: tag.rank
-				}
-				domainObj.Tag.push(tagObj);
+
+				if (tag.serverRank != tag.rank) {//if the tag's ranking is not modified
+					var tagObj = {
+					  Name: tag.text,
+					  OldRank: tag.serverRank,
+					  NewRank: tag.rank
+					}
+					// domainObj.Tags.push(tagObj);
+					tagsArray.push(tagObj);
+				};
+				
 			};//end of tag for
 		};//end of rank for
-		jsonData.Domains.push(domainObj);
+
+		if(tagsArray.length != 0){
+			var domainObj = {Name: domainNames[i],
+          	 Tags: tagsArray};
+          	 jsonData.Domains.push(domainObj);
+		}
+
+
+		
 	};//end of domain for
 
 	return jsonData;

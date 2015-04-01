@@ -137,6 +137,7 @@ function touchStartHandler(tag, event){
         tag.originalRank = tag.updateRank();
         tag.lastRank = tag.originalRank;
         tag.updateAngle();
+        createFullTextDiv(tag);
         }
     event.preventDefault();
 }

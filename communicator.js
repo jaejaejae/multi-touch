@@ -1,5 +1,7 @@
 function Communicator(){
-
+    this.dataName = "dress"; //data set name
+    this.numOfResults = 10;
+    this.URL = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?";
 	
 }
 
@@ -9,8 +11,8 @@ Communicator.prototype.run = function(){
 }
 
 Communicator.prototype.init = function(){
-	this.initURL = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking/rest2?name=asdf";
- // this.initURL= "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?init=true&name=phone&k=4";
+	// this.initURL = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking/rest2?name=asdf";
+  this.initURL = this.URL+"init=true&name="+this.dataName+"&k="+this.numOfResults;
 	this.initJsonObj = null;
 	this.buildConnection(); //return the JSON object with 
  // alert(this.initJsonObj);
@@ -48,7 +50,14 @@ Communicator.prototype.buildConnection = function(){
 
 Communicator.prototype.secondPhase = function(jsonObj){
   var jsonToSend = JSON.stringify(jsonObj);
+  this.backURL = this.URL+"name="+this.dataName+"&k="+this.numOfResults;
+  alert(jsonToSend);
   //send to server
+  $.post(this.backURL,jsonToSend, function(data, status){
+        alert("Data: " + data + "\nStatus: " + status);
+        var object = data; 
+        controller.thirdPhase(object);
+    },"json");
   //waiting for response from the server
   //return back the responsed parsed json object
 
@@ -60,24 +69,10 @@ Communicator.prototype.secondPhase = function(jsonObj){
 
 
 function tempConnection(){
-  $.getJSON("/multi-touch/received.json", function(json) {
+/*  $.getJSON("/multi-touch/received.json", function(json) {
     console.log(json); // this will show the info it in firebug console
     var object = json; 
-  //  controller.thirdPhase(object);
-  });
-/*  var url = "received.json";
-  var returnValue;
-  var xmlhttp = new XMLHttpRequest();
-  var obj = this;
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        var text = xmlhttp.responseText;
-        returnValue = JSON.parse(text);
-    }
-  }
+    controller.thirdPhase(object);
+  });*/
 
-  //var url = "/fyp/restWithResults.json";
-  xmlhttp.open("GET", url, false);
-  xmlhttp.send();
-  return returnValue;*/
 }

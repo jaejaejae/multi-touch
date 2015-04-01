@@ -273,3 +273,19 @@ Drawer.prototype.redraw = function(updateObj){
       };
     };
 }
+
+
+function createFullTextDiv(tag){
+  var div = tag.div;
+  var fullTextDiv = document.createElement("p");
+  var wrapDiv = document.getElementById('wrap');
+
+  fullTextDiv.classList.add('triangle-border');
+  fullTextDiv.style.left = div.style.left;
+  fullTextDiv.style.top = abstractNumberFromStyle(div.style.top) - 55;
+  fullTextDiv.innerHTML = tag.text;
+ 
+  wrap.appendChild(fullTextDiv);
+
+  setTimeout(function(){ wrap.removeChild(fullTextDiv); }, 1000);
+}
