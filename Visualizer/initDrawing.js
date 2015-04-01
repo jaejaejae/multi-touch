@@ -252,7 +252,7 @@ function createDiv(){
     object.addEventListener('touchend',function(event){
      result = touchEndHandler(tagsObj, tag, event);
      tagsObj = result.obj;
-     if(result.flag){
+     if(result.flag ){
         notifyUpdate(tagsObj);//notify the update
      }
    },false); 

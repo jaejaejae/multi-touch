@@ -143,36 +143,13 @@ function touchStartHandler(tag, event){
 }
 
 function touchMoveHandler(range, tag, tagsObj, event){
-	var object = tag.div;
 	event.preventDefault();
-    if (event.targetTouches.length == 1) {
-      object.style.webkitTransition = 'left ease 0s';
-        var touch = event.targetTouches[0];
-        var posit = insideDomain(range, tag, touch.pageX, touch.pageY); //posit is the final position
-        var newRank = tag.updateRank();  //update rank
-        //put the tag in the correct location(touch point)
-	    // object.style.left = posit.x + 'px';
-	    // object.style.top = posit.y + 'px';
-//check if the current rank exist the max number
-
-	//	if(!isExistMaxNum(newRank, tag)){
-			//some update
-		    updateTagCordinate(tag, posit);
-			tag.rank = newRank;
-		    tag.updateColor();
-		    tag.updateAngle();
-		    sortByAngle(tag, tagsObj);
-		    updateTagObjsDuringMove(tag, tagsObj);
-		    tagsObj = collisionResolve(tag, tagsObj);
-		    tag.lastRank = tag.rank;
-//		}
-		//else show warning
-/*		else if(newRank != tag.rank && isExistMaxNum(newRank, tag)){
-			showWarning(newRank, tag.domain);
-			resetBackToOriginal(tag);
-		}*/
-    }
-    return tagsObj;
+	if (Visualizer.MODE == PERMANENT_MODE){
+		return permanentMove(range, tag, tagsObj, event);
+	}
+	else{
+		return elasticMove(range, tag, tagsObj, event);
+	}
 }
 
 function resetBackToOriginal(tag){
@@ -193,34 +170,13 @@ function showWarning(newRank,domain){
 
 //tags obj contains all tags objects
 function touchEndHandler(tagsObj, tag, event){
-	var object = tag.div;
-	var nofingerFlag = false;
 	event.preventDefault();
-        // Place element where the finger is
-    var posit = centerToCanvas(tag.canvas, tag.x, tag.y);
-   // updateColor(tag, tag.rank);
-  	tag.updateColor();
-    object.style.webkitTransition = 'ease 1s';
-    object.style.left = posit.x + 'px';
-    object.style.top = posit.y + 'px';
-    tag.updateAngle();
-    sortByAngle(tag, tagsObj);
-    eventlySpread(tag, tagsObj);
-
-
-	if(isExistMaxNum(tag)){
-		var oldRank = tag.rank;
-		showWarning(oldRank, tag.domain);
-		resetBackToOriginal(tag);
+	if (Visualizer.MODE == PERMANENT_MODE){
+		return permanentEnd(range, tag, tagsObj, event);
 	}
-
-
-  	if(event.touches.length == 0){
-  		nofingerFlag = true; //all fingers are released
-  	}
-  //	alert(nofingerFlag);
-    return {obj: tagsObj, flag: nofingerFlag};
-        
+	else{
+		return elasticEnd(range, tag, tagsObj, event);
+	}    
 }
 
 
