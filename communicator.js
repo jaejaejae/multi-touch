@@ -51,7 +51,7 @@ Communicator.prototype.buildConnection = function(){
 Communicator.prototype.secondPhase = function(jsonObj){
   var jsonToSend = JSON.stringify(jsonObj);
   this.backURL = this.URL+"name="+this.dataName+"&k="+this.numOfResults;
-  alert(jsonToSend);
+  console.log(jsonToSend);
   //send to server
   $.post(this.backURL, jsonToSend, function(data){
         alert("Data: " + data + "\nStatus: " + status);
