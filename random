@@ -1,0 +1,7 @@
+function setTimer(){
+	if(timer != undefined){
+		clearTimeout(timer);	
+	}
+	console.log("timer set");
+	timer = setTimeout(function(){alert("stoped");}, 2000);
+}
