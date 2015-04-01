@@ -3,6 +3,7 @@
 <head>
 	
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/switch.css">
 	<link rel="stylesheet" type="text/css" href="css/table.css">
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -22,8 +23,15 @@
 
 <body>
 	<div id = 'touch'>
-		<div id = 'existWarining'>
+		<div id = "switchContainer">
+			    <label class="switch switch-green">
+			      <input type="checkbox" class="switch-input" checked>
+			      <span class="switch-label" data-on="Permanant" data-off="Elastic"></span>
+			      <span class="switch-handle"></span>
+			    </label>
 		</div>
+
+		<div id = 'existWarining'></div>
 		<div id = 'wrap'> 
 			<canvas id="myCanvas" >
 				Your browser does not support the HTML5 canvas tag.</canvas>
