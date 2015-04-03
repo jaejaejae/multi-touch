@@ -49,12 +49,13 @@ Communicator.prototype.buildConnection = function(){
 
 
 Communicator.prototype.secondPhase = function(jsonObj){
+  var tempurl = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?";
   var jsonToSend = JSON.stringify(jsonObj);
-  this.backURL = this.URL+"name="+this.dataName+"&k="+this.numOfResults;
+  this.backURL = tempurl+"name="+this.dataName+"&k="+this.numOfResults;
   console.log(jsonToSend);
   //send to server
   $.post(this.backURL, jsonToSend, function(data){
-        alert("Data: " + data + "\nStatus: " + status);
+      //  alert("Data: " + data + "\nStatus: " + status);
         var object = data; 
         controller.thirdPhase(object);
     });

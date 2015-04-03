@@ -9,7 +9,10 @@ function intiPermanent(){
 	var warp = document.getElementById('wrap');
 	var touch = document.getElementById('touch');
 	touch.style.backgroundColor = permanentColor;
+	var result = document.getElementById('result');
+	result.style.backgroundColor = permanentColor;
 }
+
 
 function permanentMove(range, tag, tagsObj, event){
 	var object = tag.div;
@@ -37,7 +40,7 @@ function permanentMove(range, tag, tagsObj, event){
 }
 
 
-function permanentEnd(range, tag, tagsObj, event){
+function permanentEnd(tagsObj, tag, event){
 	var object = tag.div;
 	var nofingerFlag = false;
         // Place element where the finger is

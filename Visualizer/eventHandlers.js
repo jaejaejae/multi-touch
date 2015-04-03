@@ -157,7 +157,7 @@ function resetBackToOriginal(tag){
 	tag.rank = tag.originalRank;
 	tagsObj = updateTagObjs(lastRank, tag, tagsObj);
 	eventlySpreadRank(tag.originalRank, tag, tagsObj); //////continue adding element to the original rank bug!!!!!!
-	eventlySpreadRank(lastRank, this, tagsObj);
+	eventlySpreadRank(lastRank, tag, tagsObj);
 }
 
 function showWarning(newRank,domain){
@@ -172,10 +172,10 @@ function showWarning(newRank,domain){
 function touchEndHandler(tagsObj, tag, event){
 	event.preventDefault();
 	if (Visualizer.MODE == PERMANENT_MODE){
-		return permanentEnd(range, tag, tagsObj, event);
+		return permanentEnd(tagsObj, tag, event);
 	}
 	else{
-		return elasticEnd(range, tag, tagsObj, event);
+		return elasticEnd(tagsObj, tag, event);
 	}    
 }
 

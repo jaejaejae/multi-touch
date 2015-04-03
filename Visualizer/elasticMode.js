@@ -9,7 +9,9 @@ function runElastic(){
 function initElastic(){
 	var warp = document.getElementById('wrap');
 	var touch = document.getElementById('touch');
+	var result = document.getElementById('result');
 	touch.style.backgroundColor = elasticModeColor;
+	result.style.backgroundColor = elasticModeColor;
 }
 
 
@@ -54,7 +56,7 @@ function elasticMove(range, tag, tagsObj, event){
     return tagsObj;
 }
 
-function elasticEnd(range, tag, tagsObj, event){
+function elasticEnd(tagsObj, tag, event){
 	clearTimeout(timer);
 
 

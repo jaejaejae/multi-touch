@@ -7,7 +7,8 @@
 			"Tags": [
 						{
 							"Name" : "no",
-							"NewRanking": 2
+							"NewRanking": 2,
+							"SafeRegion": [2, 2]
 						},
 						{
 							"Name" : "yes",
@@ -37,67 +38,22 @@
 		},
 
 		{
-			"Name":"price",
-			"Tags": [
-						{
-							"Name" : "4-7",
-							"NewRanking": 3
-						},
-						{
-							"Name" : "8-10",
-							"NewRanking": 1
-						}
-			]
-		},
-
-		{
-			"Name": "talkT",
-			"Tags":[
-						{
-							"Name" : "short",
-							"NewRanking": 4
-						},
-						{
-							"Name" : "long",
-							"NewRanking": 1
-						}
-
-			]
-		},
-
-		{
-			"Name": "standby",
-			"Tags":[]
-		},
-		{
-			"Name": "colors",
-			"Tags":[
-						{
-							"Name" : "silver",
-							"NewRanking": 4
-						},
-						{
-							"Name" : "gold",
-							"NewRanking": 1
-						}
-
-			]
-		},
-
-		{
 			"Name": "features",
 			"Tags":[]
 		}
-		
+			
 		
 	],
+	"MetaAttributes" : ["size", "price", "style", "sleevelength"],
 
 	"Results" : 
 	[
 		{
 			"Name": "iphone6",
 			"ID": "1234",
-			"Attributes": ["do1tag1", "do2", "do3", "do4", "do5"]
+			"Img": "asdfas.jpg",
+			"Score": 0.8,
+			"Attributes" : ["s", "cheap", "casual", "long"]
 		},
 		{
 			"Name": "Samsung S4",
