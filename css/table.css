@@ -92,14 +92,14 @@ a.titleLink {
 	font-family: Arial;
 }
 
-strong.price{
+strong.attributes{
 	font-size: 14px;
 	font-weight: normal;
 	color: #990000;
 	margin-left: 10px;
 }
 
-.priceBlock{
+.attrBlock{
 	position: relative;
 	padding-top: 2px;
 }
