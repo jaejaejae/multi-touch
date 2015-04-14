@@ -9,7 +9,7 @@ table {
     height: 100%;
     border-collapse: collapse;
     border-spacing: 0;
-    background-color:rgba(255,255,250,0.7);
+    /*background-color:rgba(255,255,250,0.7);*/
 }
 
 tr{
@@ -18,21 +18,32 @@ tr{
     border-color:  red;
     border-bottom-style:solid;
 	box-sizing: border-box;
-	height: 50px;
+	height: auto;
 }
+
+tr:hover{
+	background-color: rgba(255,255,250,0.7);
+}
+
 
 td{
 	border: 2px red;
-	padding-left: 10%;
-	/*text-align: center;*/
+/*	padding-left: 10%;*/
+/*	text-align: center;*/
+	vertical-align: middle;
 
 }
 
 td:first-child{
+
 	width: 30%;
+	vertical-align: middle;
 }
 
-
+tbody{
+	vertical-align: middle;
+	overflow: auto;
+}
 
 
 
@@ -91,4 +102,31 @@ strong.price{
 .priceBlock{
 	position: relative;
 	padding-top: 2px;
+}
+
+
+/*thead {
+
+    tr {
+
+	font-family: 'Source Sans Pro',sans-serif;
+	font-weight: bold;
+	font-size: 15px; 
+    	text-align: left;
+      display: block;
+      position: relative;
+    }
+  }*/
+
+thead{
+	position: relative;
+	width: 100%;
+	/*display: block;*/
+}
+
+th{
+	font-family: 'Source Sans Pro',sans-serif;
+	font-weight: bold;
+	font-size: 15px; 
+	text-align: left;
 }

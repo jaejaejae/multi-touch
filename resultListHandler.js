@@ -4,7 +4,7 @@ function parseResults(resultsObj){
 	removeExistingResults();
 	for (var i = 0; i < resultsObj.length; i++) {
 		var row = document.createElement("tr");
-		var td =  document.createElement("td");
+		var tdInfo =  document.createElement("td");
 		var nameDiv =  document.createElement("div");
 		var attriDiv =  document.createElement("div");
 		var strongDiv = document.createElement("strong");
@@ -23,12 +23,21 @@ function parseResults(resultsObj){
 		attriDiv.classList.add("priceBlock");
 		//append child
 		attriDiv.appendChild(strongDiv);
-		td.appendChild(nameDiv);
-		td.appendChild(attriDiv);
-		row.appendChild(td);
+		tdInfo.appendChild(nameDiv);
+		tdInfo.appendChild(attriDiv);
+		row.appendChild(tdInfo);
 		tbody.appendChild(row);
 	};
 }
+
+function addFirstColumn(resultsObj){
+	var firstDiv = document.createElement("div");
+	var image = document.createElement("img");
+
+	firstDiv.classList.add("rankedItemImage");
+	//image.src = resultsObj.img;
+}
+
 
 function removeExistingResults(){
 	while (tbody.firstChild) {
