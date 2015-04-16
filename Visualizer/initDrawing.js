@@ -55,7 +55,8 @@ Drawer.prototype.drawTagsSingle = function(indexDomain, indexRank, ranks){
           context.font = 'bold 12px Helvetica';
           if(indexRank == -1) color = 'red';
           else color = 'black';
-          var temp = new Tags(this.n, canvas, x,y,color,ranks[i], document, indexDomain, indexRank, this.length );
+          //add save region
+          var temp = new Tags(this.n, x,y,color,ranks[i].Name, indexDomain, indexRank, this.length, ranks[i].SafeRegion);
           tagsObjSingle.push(temp);
           tagHashMap[ranks[i]] = temp; //push the tag object into the hashmap with the key of its name
 

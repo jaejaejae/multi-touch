@@ -58,10 +58,10 @@ function elasticMove(range, tag, tagsObj, event){
 
 function elasticEnd(tagsObj, tag, event){
 	clearTimeout(timer);
-
+	var isSend = false;
 
 	var object = tag.div;
-	var sendUpdateFlag = true;//in elastic mode, update for every finger released
+	//var sendUpdateFlag = true;//in elastic mode, update for every finger released
     // Place element where the finger is
   /*  var posit = centerToCanvas(tag.canvas, tag.x, tag.y);
    // updateColor(tag, tag.rank);
@@ -77,11 +77,13 @@ function elasticEnd(tagsObj, tag, event){
 
 	resetBackToOriginal(tag);
 
-
+	//check within save region
+	var isWithin = isWithinSaveRegion(tagsObj);
+	isSend = (!isWithin);//send when there are some tags are not within save region
 
  
 
-    return {obj: tagsObj, flag: sendUpdateFlag};
+    return {obj: tagsObj, isSend: isSend};
 
 }
 

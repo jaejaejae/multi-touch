@@ -42,7 +42,7 @@ function permanentMove(range, tag, tagsObj, event){
 
 function permanentEnd(tagsObj, tag, event){
 	var object = tag.div;
-	var nofingerFlag = false;
+	var isSend = false;
         // Place element where the finger is
     var posit = centerToCanvas(tag.canvas, tag.x, tag.y);
    // updateColor(tag, tag.rank);
@@ -63,9 +63,13 @@ function permanentEnd(tagsObj, tag, event){
 
 
   	if(event.touches.length == 0){
-  		nofingerFlag = true; //all fingers are released
+  		var nofingerFlag = true; //all fingers are released
+  		//check within save region
+  		var isWithin = isWithinSaveRegion(tagsObj);
+  		isSend = nofingerFlag && (!isWithin);//all finger released and some tags are not within save region
   	}
 
-    return {obj: tagsObj, flag: nofingerFlag};
+    return {obj: tagsObj, isSend: isSend};
 
-}
+
+    }

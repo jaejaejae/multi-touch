@@ -1,7 +1,7 @@
 // Simple class example
 
 
-function Tags(n, canvas, posX, posY, color, text, document, domain, rank, length) {
+function Tags(n, posX, posY, color, text, domain, rank, length, saveRegion) {
 		this.n = n;
 		this.x = posX; //x position relative to the canvas center
 		this.y = posY; //y position relative to the canvas center
@@ -14,7 +14,6 @@ function Tags(n, canvas, posX, posY, color, text, document, domain, rank, length
 		this.width = 0;
 		this.div = document.createElement("div");
 		this.zIndex = [];
-		this.canvas = canvas;
 		this.domain = domain; //start from 0
 		this.rank = rank + 1; //current rank, start from 1
 		this.originalRank = this.rank; //the originalRank before touchstart
@@ -22,6 +21,7 @@ function Tags(n, canvas, posX, posY, color, text, document, domain, rank, length
 		this.serverRank = this.originalRank;//the rank that stored in server
 		this.angle = 0;
 		this.length = length;
+		this.saveRegion = saveRegion;
 				
 		this.init();
 }

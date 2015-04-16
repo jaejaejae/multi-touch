@@ -6,8 +6,8 @@
 		{
 			"Name" : "dual",
 			"Tags": {
-				"Rank1":["no"],
-				"Rank2":["yes"]	
+				"Rank1":[{"Name":"no",     "SafeRegion": [1,1]}],
+				"Rank2":[{"Name": "yes",    "SafeRegion": [2,2]}]	
 
 			}
 		},
