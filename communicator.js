@@ -1,7 +1,8 @@
 function Communicator(){
-    this.dataName = "dress"; //data set name
-    this.numOfResults = 10;
-    this.URL = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?";
+   this.dataName = "dress"; //data set name    
+   this.numOfResults = 10;
+ //   this.URL = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?";
+    this.URL = "http://192.168.1.101:9080/ranking.interface/ranking?";
 	
 }
 
@@ -51,7 +52,7 @@ Communicator.prototype.buildConnection = function(){
 Communicator.prototype.secondPhase = function(jsonObj){
   var tempurl = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?";
   var jsonToSend = JSON.stringify(jsonObj);
-  this.backURL = tempurl+"name="+this.dataName+"&k="+this.numOfResults;
+  this.backURL = this.URL+"name="+this.dataName+"&k="+this.numOfResults;
   console.log(jsonToSend);
   //send to server
   $.post(this.backURL, jsonToSend, function(data){

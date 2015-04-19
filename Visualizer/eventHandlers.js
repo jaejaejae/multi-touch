@@ -441,8 +441,8 @@ function eventlySpreadInRang(all, rank, tag, tagsObj, startIndex, endIndex, star
 	for(var i = 0; i < n; i++){
 
 		array[index].angle = startAngle + unitAngle*(i+1);
-		array[index].x = Math.cos(array[index].angle) * distance - array[index].width/2; //put into center
-		array[index].y = Math.sin(array[index].angle) * distance - array[index].size/2;
+		array[index].x = Math.cos(array[index].angle) * distance - array[index].div.clientWidth/2; //put into center
+		array[index].y = Math.sin(array[index].angle) * distance - array[index].div.clientHeight/2;
 		var posit = centerToCanvas(tag.canvas, array[index].x, array[index].y);
 		array[index].div.style.left = posit.x;
 		array[index].div.style.top = posit.y;

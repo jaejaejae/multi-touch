@@ -52,11 +52,12 @@ Drawer.prototype.drawTagsSingle = function(indexDomain, indexRank, ranks){
           x = Math.cos(startAngle + unitAngle*(i+1)) * startLength;
           y = Math.sin(startAngle + unitAngle*(i+1)) * startLength;
 
-          context.font = 'bold 12px Helvetica';
+         // context.font = 'bold 12px Helvetica';
           if(indexRank == -1) color = 'red';
           else color = 'black';
           //add save region
-          var temp = new Tags(this.n, x,y,color,ranks[i].Name, indexDomain, indexRank, this.length, ranks[i].SafeRegion);
+          var temp = new Tags(canvas, this.n, x,y,color,ranks[i], indexDomain, indexRank, this.length, [indexRank+1, indexRank+1]);
+         // var temp = new Tags(this.n, x,y,color,ranks[i].Name, indexDomain, indexRank, this.length, ranks[i].SafeRegion);
           tagsObjSingle.push(temp);
           tagHashMap[ranks[i]] = temp; //push the tag object into the hashmap with the key of its name
 
@@ -231,6 +232,7 @@ function createDiv(){
         var tag = tagsObj[i][j][k];
         var div = tag.div;
         wrapDiv.appendChild(div);
+        tag.setCoordinates();
         addListener(tag);
       };
     }}
@@ -253,7 +255,7 @@ function createDiv(){
     object.addEventListener('touchend',function(event){
      result = touchEndHandler(tagsObj, tag, event);
      tagsObj = result.obj;
-     if(result.flag ){
+     if(result.isSend ){
         notifyUpdate(tagsObj);//notify the update
      }
    },false); 

@@ -74,7 +74,7 @@ function parseIntoJsonObj(jsonObj){
 						  OldRank: tag.serverRank,
 						  NewRank: tag.rank
 						}
-				domainObj.Tag.push(tagObj);
+				domainObj.Tags.push(tagObj);
 /*				if (tag.serverRank != tag.rank) {//if the tag's ranking is not modified
 					var tagObj = {
 					  Name: tag.text,

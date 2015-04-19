@@ -1,7 +1,7 @@
 // Simple class example
 
 
-function Tags(n, posX, posY, color, text, domain, rank, length, saveRegion) {
+function Tags(canvas, n, posX, posY, color, text, domain, rank, length, saveRegion) {
 		this.n = n;
 		this.x = posX; //x position relative to the canvas center
 		this.y = posY; //y position relative to the canvas center
@@ -9,7 +9,7 @@ function Tags(n, posX, posY, color, text, domain, rank, length, saveRegion) {
 		this.divY = 0;
 		this.color = color;
 		this.backColor = ""; //background color
-		this.size = 25; //default size 12
+		this.size = 30; //default size 12
 		this.text = text;
 		this.width = 0;
 		this.div = document.createElement("div");
@@ -22,15 +22,16 @@ function Tags(n, posX, posY, color, text, domain, rank, length, saveRegion) {
 		this.angle = 0;
 		this.length = length;
 		this.saveRegion = saveRegion;
+		this.canvas = canvas;
 				
 		this.init();
 }
 
 Tags.prototype.init = function(){
 	this.drawToContext(context,this.length/4); 
-	this.x -= this.width/2;
-    this.y -= this.size/2;
     this.div = this.createDiv(this);
+/*	this.x -= this.width/2; //set x to the center
+    this.y -= this.size/2; //set y to the center*/
     this.updateAngle();
     this.setBackgroundColor();
 }
@@ -123,6 +124,18 @@ Tags.prototype.updateColor = function(){
 	}
 }
 
+Tags.prototype.setCoordinates = function() {
+	// body...
+	this.x -= this.div.clientWidth/2;
+	this.y -= this.div.clientHeight/2;
+	this.div.style.left = this.canvas.width/2 + this.x + 'px';
+	this.div.style.top = this.canvas.height/2 + this.y + 'px';
+	this.width = this.div.clientWidth;
+	this.size = this.div.clientHeight;
+
+};
+
+
 
 Tags.prototype.setBackgroundColor = function(){
 	 this.backColor = randColor[this.domain];
@@ -150,6 +163,11 @@ Tags.prototype.createDiv = function (tag){
   //    div.style.backgroundColor = randColor[tag.domain] + rankOpacity[tag.rank-1]+ ')';
       div.style.backgroundColor = randColor[tag.domain];
     //  tagsDiv.push(div);
+
+
+
+    this.divWidth = div.clientWidth;
+    this.divHeight = div.clientHeight;
       return div;
 
 }
