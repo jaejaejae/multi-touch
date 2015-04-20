@@ -69,6 +69,7 @@ function elasticEnd(tagsObj, tag, event){
     object.style.webkitTransition = 'ease 1s';
     object.style.left = posit.x + 'px';
     object.style.top = posit.y + 'px';*/
+    object.style.webkitTransition = 'ease 1s';
     tag.updateAngle();
     sortByAngle(tag, tagsObj);
     eventlySpread(tag, tagsObj);

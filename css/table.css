@@ -27,6 +27,7 @@ tr:hover{
 
 
 td{
+
 	border: 2px red;
 /*	padding-left: 10%;*/
 /*	text-align: center;*/
@@ -35,9 +36,13 @@ td{
 }
 
 td:first-child{
-
-	width: 30%;
+	/*max-width: 200px;*/
+	width: 40%;
 	vertical-align: middle;
+}
+
+td:last-child{
+	width: 20%;
 }
 
 tbody{

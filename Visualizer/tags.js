@@ -9,7 +9,7 @@ function Tags(canvas, n, posX, posY, color, text, domain, rank, length, saveRegi
 		this.divY = 0;
 		this.color = color;
 		this.backColor = ""; //background color
-		this.size = 30; //default size 12
+		this.size = 25; //default size 12
 		this.text = text;
 		this.width = 0;
 		this.div = document.createElement("div");

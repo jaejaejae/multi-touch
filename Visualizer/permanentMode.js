@@ -17,7 +17,7 @@ function intiPermanent(){
 function permanentMove(range, tag, tagsObj, event){
 	var object = tag.div;
     if (event.targetTouches.length == 1) {
-      object.style.webkitTransition = 'left ease 0s';
+       object.style.webkitTransition = 'left ease 0s';
         var touch = event.targetTouches[0];
         var posit = insideDomain(range, tag, touch.pageX, touch.pageY); //posit is the final position
         var newRank = tag.updateRank();  //update rank

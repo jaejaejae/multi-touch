@@ -1,8 +1,9 @@
 function Communicator(){
-   this.dataName = "dress"; //data set name    
+    this.dataName = "dress"; //data set name    
+ // this.dataName = "indian_tweet"; //data set name    
    this.numOfResults = 10;
- //   this.URL = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?";
-    this.URL = "http://192.168.1.101:9080/ranking.interface/ranking?";
+ // this.URL = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?";
+    this.URL = "http://192.168.1.41:9080/ranking.interface/ranking?";
 	
 }
 
@@ -53,12 +54,14 @@ Communicator.prototype.secondPhase = function(jsonObj){
   var tempurl = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?";
   var jsonToSend = JSON.stringify(jsonObj);
   this.backURL = this.URL+"name="+this.dataName+"&k="+this.numOfResults;
-  console.log(jsonToSend);
+  console.log("send to server");
   //send to server
   $.post(this.backURL, jsonToSend, function(data){
       //  alert("Data: " + data + "\nStatus: " + status);
+      console.log("received");
         var object = data; 
         controller.thirdPhase(object);
+
     });
   //waiting for response from the server
   //return back the responsed parsed json object

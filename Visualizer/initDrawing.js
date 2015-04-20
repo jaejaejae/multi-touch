@@ -56,10 +56,16 @@ Drawer.prototype.drawTagsSingle = function(indexDomain, indexRank, ranks){
           if(indexRank == -1) color = 'red';
           else color = 'black';
           //add save region
-          var temp = new Tags(canvas, this.n, x,y,color,ranks[i], indexDomain, indexRank, this.length, [indexRank+1, indexRank+1]);
-         // var temp = new Tags(this.n, x,y,color,ranks[i].Name, indexDomain, indexRank, this.length, ranks[i].SafeRegion);
+         // var temp = new Tags(canvas, this.n, x,y,color,ranks[i], indexDomain, indexRank, this.length, [indexRank+1, indexRank+1]);
+          var temp = new Tags(canvas,this.n, x,y,color,ranks[i].Name, indexDomain, indexRank, this.length, ranks[i].SafeRegion);
           tagsObjSingle.push(temp);
-          tagHashMap[ranks[i]] = temp; //push the tag object into the hashmap with the key of its name
+
+          if(ranks[i].Name == ""){
+            var name = ranks[i].Name + indexDomain;
+            tagHashMap[name] = temp;
+          }
+          else
+            tagHashMap[ranks[i].Name] = temp; //push the tag object into the hashmap with the key of its name
 
     };
 
@@ -270,9 +276,13 @@ Drawer.prototype.redraw = function(updateObj){
       var tagsInRanki = updateObj[i].Tags;
       for (var j = 0; j < tagsInRanki.length; j++) {
         var tagName = tagsInRanki[j].Name;
+        if(tagName == "")
+          tagName += i;
         var newRanking = tagsInRanki[j].NewRanking;
         var tag = tagHashMap[tagName];
-        tag.setToRanking(newRanking);
+        tag.saveRegion = tagsInRanki[j].SafeRegion;
+        if(tag.rank != newRanking)
+          tag.setToRanking(newRanking);
       };
     };
 }

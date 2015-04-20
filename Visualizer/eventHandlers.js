@@ -41,7 +41,7 @@ rangeTangent.prototype.getDomain = function(point){
 	var y = point.y;
 	var tan = y/x;
 	var angle = Math.atan(tan);
-	console.log("touch angle:", angle);
+	// console.log("touch angle:", angle);
 	for (var i = 0; i < this.end.length; i++) { //there are still some equal range number need to be considerate
 		if(i == 0){
 			if(i != this.posIndex && angle >=0 && angle<this.end[0]){
@@ -195,8 +195,8 @@ function insideDomain(range,tag, left, top){
 	var touchDomain = range.getDomain(touchPoint);
 
 
-	console.log("original domain", standard);
-	console.log("touch domain", touchDomain);
+	/*console.log("original domain", standard);
+	console.log("touch domain", touchDomain);*/
 
 
 //all points inside the range
@@ -462,7 +462,7 @@ function collisionResolve(tag, tagsObj){
 
 	for (var i = 0; i < array.length; i++) {
 		var _Case = collisionCase(tag, array[i]);
-		console.log("i and touch case", i, _Case);
+		// console.log("i and touch case", i, _Case);
 		switch(_Case){
 			case 1:
 				leftCollisionResolve(tag, tagsObj, i);

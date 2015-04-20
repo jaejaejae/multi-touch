@@ -27,7 +27,7 @@ function addFirstColumn(result){
 	firstDiv.appendChild(image);
 	tdImg.appendChild(firstDiv);
 
-	return firstDiv;
+	return tdImg;
 
 }
 
