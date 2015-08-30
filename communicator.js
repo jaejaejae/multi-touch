@@ -2,8 +2,8 @@ function Communicator(){
     this.dataName = "dress"; //data set name    
  // this.dataName = "indian_tweet"; //data set name    
    this.numOfResults = 10;
- // this.URL = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?";
-    this.URL = "http://192.168.1.41:9080/ranking.interface/ranking?";
+   this.URL = "http://dbgpucluster-2.d2.comp.nus.edu.sg:8080/ranking.interface/ranking?";
+   // this.URL = "http://192.168.1.41:9080/ranking.interface/ranking?";
 	
 }
 
