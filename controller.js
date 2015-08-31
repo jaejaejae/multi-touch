@@ -18,7 +18,7 @@ pass the JSON object back to Visualizer to visualize and display to the user
 Controller.prototype.initialPhase = function(){
     this.communicator = new Communicator();
     this.visualizer = new Visualizer();
-    this.communicator.numOfResults = 10;
+    this.communicator.numOfResults = 200;
     this.communicator.init();
     this.visualizer.init(this.communicator.initJsonObj);
 
@@ -53,8 +53,6 @@ function openVisualizerSummary(rankingWithResultObj) {
     // newWindowBody.append('p').html(jsonToPrint);
 
     plotScatter(rankingWithResultObj, newWindowBody);
-
-    newWindowBody.append('p').html(JSON.stringify(rankingWithResultObj.Domains));
 }
 
 

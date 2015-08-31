@@ -22,10 +22,10 @@ function convertToD3Format(rankingWithResultObj) {
   }
 
   var results = rankingWithResultObj.Results;
-  for (var i = 0; i<results.length; ++i) {
+  for (var i = 0; i < results.length; ++i) {
     var result = results[i];
     var attributes = result.Attributes;
-    for (var k =0; k<domainKeys.length; ++k) {
+    for (var k = 0; k < domainKeys.length; ++k) {
       var a = domainKeys[k];
       var attribute = attributes[a];
       var row = {}
@@ -40,7 +40,6 @@ function convertToD3Format(rankingWithResultObj) {
 
 function plotScatter(rankingWithResultObj, newWindowBody) {
   var data = convertToD3Format(rankingWithResultObj);
-  var domains = rankingWithResultObj.Domains;
 
   var margin = {
       top: 20,
@@ -112,28 +111,28 @@ function plotScatter(rankingWithResultObj, newWindowBody) {
       .text("Ranking")
 
     // Start plotting
-/*    svg.selectAll(".dot")
-      .data(data)
-      // attribute of each circle
-      .enter().append("circle")
-      .attr("class", "dot")
-      .attr("r", 3.5)
-      // where should the  center be?
-      .attr("cx", function(d) {
-        return x(d.attributeKey);
-      })
-      .attr("cy", function(d) {
-        return y(d.order);
-      })
-      .style("fill", function(d) {
-        return color(d.attributeRank);
-      });*/
+    /*    svg.selectAll(".dot")
+          .data(data)
+          // attribute of each circle
+          .enter().append("circle")
+          .attr("class", "dot")
+          .attr("r", 3.5)
+          // where should the  center be?
+          .attr("cx", function(d) {
+            return x(d.attributeKey);
+          })
+          .attr("cy", function(d) {
+            return y(d.order);
+          })
+          .style("fill", function(d) {
+            return color(d.attributeRank);
+          });*/
     svg.selectAll(".dot")
       .data(data)
       .enter().append("rect")
       .attr("class", "dot")
-      .attr("width",20)
-      .attr("height",3.5)
+      .attr("width", 20)
+      .attr("height", 3.5)
       .attr("x", function(d) {
         return x(d.attributeKey);
       })
@@ -168,4 +167,10 @@ function plotScatter(rankingWithResultObj, newWindowBody) {
         return d;
       });
   });
+
+  var domains = rankingWithResultObj.Domains;
+  for(var d in domains) {
+    var domain = domains[d];
+    newWindowBody.append('p').html(d + ": " + domain.Name);
+  }
 }
