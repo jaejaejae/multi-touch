@@ -1,224 +1,202 @@
- var randColor = ['rgb(217,59,88)',
-                 'rgba(244,92,147,0.6)',
-                 'rgba(246,235,119,0.6)',
-                 'rgba(171,224,255,0.6)',
-                 'rgba(45,179,160,0.6)',
-                 'rgba(183,282,158,0.6)',
-                 'rgba(199,149,255,0.6)',
-                 'rgba(152,17,217,0.6)'];
- var rankOpacity = [0.5, 0.5, 0.5, 0.5];
- var canvas,context;
- var tagsObj;
- var tagHashMap = {}; //hashmap. Key: text inside tags; Value: the tag object itself
+var randColor = ['rgb(217,59,88)',
+  'rgba(244,92,147,0.6)',
+  'rgba(246,235,119,0.6)',
+  'rgba(171,224,255,0.6)',
+  'rgba(45,179,160,0.6)',
+  'rgba(183,282,158,0.6)',
+  'rgba(199,149,255,0.6)',
+  'rgba(152,17,217,0.6)'
+];
+var rankOpacity = [0.5, 0.5, 0.5, 0.5];
+var canvas, context;
+var tagsObj;
+var tagHashMap = {}; //hashmap. Key: text inside tags; Value: the tag object itself
 
 //constructor
-function Drawer(n, tags){
-  this.n = n; 
-  this.length = Math.min(canvas.height/2,canvas.width/2) - 10;
-  this.tags = tags;//pased json object
+function Drawer(n, tags) {
+  this.n = n;
+  this.length = Math.min(canvas.height / 2, canvas.width / 2) - 10;
+  this.tags = tags; //pased json object
 }
-
-
 
 //drawing driver
-Drawer.prototype.draw = function(){
-
+Drawer.prototype.draw = function() {
   this.drawCircles(this.length, context);
-
-  this.drawLines(canvas.width/2, canvas.height/2,this.length, context);
-
+  this.drawLines(canvas.width / 2, canvas.height / 2, this.length, context);
   this.drawDomainName();
-
-  tagsObj = this.drawTagsDomain(this.length, this.n,context);
-
+  tagsObj = this.drawTagsDomain(this.length, this.n, context);
   createDiv();
 }
-
-
-
 
 /* This function create tags object in a specific rank of a domain.
    Returns the tags objects as an array
 */
-Drawer.prototype.drawTagsSingle = function(indexDomain, indexRank, ranks){
-    var tagsObjSingle = [];
-    var startAngle = 2* Math.PI/this.n * indexDomain;
-    var startLength = this.length/4 * indexRank + this.length/8;
-    var unitAngle = 2* Math.PI/(this.n * (ranks.length+1));
-    //console.log(indexDomain, startAngle);
-    //for each rank
-    for (var i = 0; i < ranks.length; i++) {
-          //tags x and y cordinate relatived to the center of canvas
-          x = Math.cos(startAngle + unitAngle*(i+1)) * startLength;
-          y = Math.sin(startAngle + unitAngle*(i+1)) * startLength;
+Drawer.prototype.drawTagsSingle = function(indexDomain, indexRank, ranks) {
+  var tagsObjSingle = [];
+  var startAngle = 2 * Math.PI / this.n * indexDomain;
+  var startLength = this.length / 4 * indexRank + this.length / 8;
+  var unitAngle = 2 * Math.PI / (this.n * (ranks.length + 1));
+  //console.log(indexDomain, startAngle);
+  //for each rank
+  for (var i = 0; i < ranks.length; i++) {
+    //tags x and y cordinate relatived to the center of canvas
+    x = Math.cos(startAngle + unitAngle * (i + 1)) * startLength;
+    y = Math.sin(startAngle + unitAngle * (i + 1)) * startLength;
 
-         // context.font = 'bold 12px Helvetica';
-          if(indexRank == -1) color = 'red';
-          else color = 'black';
-          //add save region
-         // var temp = new Tags(canvas, this.n, x,y,color,ranks[i], indexDomain, indexRank, this.length, [indexRank+1, indexRank+1]);
-          var temp = new Tags(canvas,this.n, x,y,color,ranks[i].Name, indexDomain, indexRank, this.length, ranks[i].SafeRegion);
-          tagsObjSingle.push(temp);
+    // context.font = 'bold 12px Helvetica';
+    if (indexRank == -1) color = 'red';
+    else color = 'black';
+    //add save region
+    // var temp = new Tags(canvas, this.n, x,y,color,ranks[i], indexDomain, indexRank, this.length, [indexRank+1, indexRank+1]);
+    var temp = new Tags(canvas, this.n, x, y, color, ranks[i].Name, indexDomain, indexRank, this.length, ranks[i].SafeRegion);
+    tagsObjSingle.push(temp);
 
-          if(ranks[i].Name == ""){
-            var name = ranks[i].Name + indexDomain;
-            tagHashMap[name] = temp;
-          }
-          else
-            tagHashMap[ranks[i].Name] = temp; //push the tag object into the hashmap with the key of its name
+    if (ranks[i].Name == "") {
+      var name = ranks[i].Name + indexDomain;
+      tagHashMap[name] = temp;
+    } else
+      tagHashMap[ranks[i].Name] = temp; //push the tag object into the hashmap with the key of its name
 
-    };
+  };
 
-    return tagsObjSingle;
+  return tagsObjSingle;
 }
 
+Drawer.prototype.drawTagsDomain = function(length, n, ctx) {
+    // var tags = JSON.parse(this.text);
+    var domains = [];
+    //var tagsObj = [4]; 
+    for (var i = 0; i < n; i++) {
+      var singleDomain = [];
+      for (var j = 0; j < 4; j++) {
+        var singleRank = [];
+        switch (j) {
+          case 0:
+            //// singleDomain[0] = this.tags.Domains[i].Tags.Rank1;
+            singleRank = this.tags[i].Tags.Rank1;
+            break;
 
+          case 1:
+            ///  singleDomain[1] = this.tags.Domains[i].Tags.Rank2;
+            singleRank = this.tags[i].Tags.Rank2;
+            break;
 
-Drawer.prototype.drawTagsDomain = function(length, n, ctx){
-     // var tags = JSON.parse(this.text);
-     var domains = [];
-      //var tagsObj = [4]; 
-      for (var i = 0; i < n; i++) {
-        var singleDomain = [];
-        for (var j = 0; j < 4; j++) {
-          var singleRank = [];
-          switch(j){
-            case 0:
-                       //// singleDomain[0] = this.tags.Domains[i].Tags.Rank1;
-                       singleRank = this.tags[i].Tags.Rank1;
-                       break;
+          case 2:
+            //  singleDomain[2] = this.tags.Domains[i].Tags.Rank3;
+            singleRank = this.tags[i].Tags.Rank3;
+            break;
 
-                       case 1:
-                      ///  singleDomain[1] = this.tags.Domains[i].Tags.Rank2;
-                      singleRank = this.tags[i].Tags.Rank2;
-                      break;
+          case 3:
+            //  singleDomain[3] = this.tags.Domains[i].Tags.Rank4;
+            singleRank = this.tags[i].Tags.Rank4;
+            break;
+        }
+        if (singleRank == null)
+          singleRank = [];
+        else
+          singleRank = this.drawTagsSingle(i, j, singleRank);
+        singleDomain[j] = singleRank;
+        //singleDomain[j] = this.drawTagsSingle(i, j, singleDomain[j]);
+      };
+      domains.push(singleDomain);
+    };
 
-                      case 2:
-                      //  singleDomain[2] = this.tags.Domains[i].Tags.Rank3;
-                      singleRank = this.tags[i].Tags.Rank3;
-                      break;
-
-                      case 3:
-                      //  singleDomain[3] = this.tags.Domains[i].Tags.Rank4;
-                      singleRank = this.tags[i].Tags.Rank4;
-                      break;
-                    }
-                    if(singleRank == null)
-                      singleRank = [];
-                    else
-                      singleRank = this.drawTagsSingle(i, j, singleRank);
-                    singleDomain[j] = singleRank;
-                  //singleDomain[j] = this.drawTagsSingle(i, j, singleDomain[j]);
-                };
-                domains.push(singleDomain);
-              };
-
-              return domains;
-}//end of function drawtags
-
-
-
-
-
+    return domains;
+  } //end of function drawtags
 
 //draw the rank circles
-Drawer.prototype.drawCircles = function(length, ctx){
-	ctx.beginPath();
+Drawer.prototype.drawCircles = function(length, ctx) {
+  ctx.beginPath();
   ctx.arc(0, 0, length, 0, 2 * Math.PI, false);
   ctx.fillStyle = 'rgba(255,255, 255, 0.3)';
   ctx.fill();
   ctx.beginPath();
-  ctx.arc(0, 0, length/4 * 3, 0, 2 * Math.PI, false);
+  ctx.arc(0, 0, length / 4 * 3, 0, 2 * Math.PI, false);
   ctx.fillStyle = 'rgba(236,193, 244, 0.5)';
   ctx.fill();
   ctx.beginPath();
-  ctx.arc(0, 0, length/4 * 2, 0, 2 * Math.PI, false);
+  ctx.arc(0, 0, length / 4 * 2, 0, 2 * Math.PI, false);
   ctx.fillStyle = 'rgba(255, 138, 138, 0.5)';
   ctx.fill();
   ctx.beginPath();
-  ctx.arc(0, 0, length/4 , 0, 2 * Math.PI, false);
+  ctx.arc(0, 0, length / 4, 0, 2 * Math.PI, false);
   ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
   ctx.fill();
 }
 
-
-
-
-Drawer.prototype.drawLines = function(centerX,centerY,length,context){
+Drawer.prototype.drawLines = function(centerX, centerY, length, context) {
   var lineLen = Math.min(centerX, centerY);
   for (var i = 0; i < this.n; i++) {
-    var degree = 2*Math.PI/this.n;
-    this.drawLine(centerX,centerY,lineLen,context);
+    var degree = 2 * Math.PI / this.n;
+    this.drawLine(centerX, centerY, lineLen, context);
     context.rotate(degree);
   };
 }
 
 //draw a line
-Drawer.prototype.drawLine = function(x,y,length, ctx){
-	ctx.moveTo(0,0);
-	ctx.lineTo(length, 0);
-	ctx.strokeStyle  = 'rgba(0,0,0, 0.3)';
-	ctx.stroke();
+Drawer.prototype.drawLine = function(x, y, length, ctx) {
+  ctx.moveTo(0, 0);
+  ctx.lineTo(length, 0);
+  ctx.strokeStyle = 'rgba(0,0,0, 0.3)';
+  ctx.stroke();
 }
 
-
-
-
-function random(n){
-  return Math.floor(Math.random()*n);
-}
-function getCol(r,g,b){
-  return 'rgba('+r+','+g+','+b+',';
-}
-function randCol(){
-  return getCol(random(255),random(255),random(255), 0.2);
+function random(n) {
+  return Math.floor(Math.random() * n);
 }
 
+function getCol(r, g, b) {
+  return 'rgba(' + r + ',' + g + ',' + b + ',';
+}
 
-Drawer.prototype.generateRandColor = function(){
+function randCol() {
+  return getCol(random(255), random(255), random(255), 0.2);
+}
+
+Drawer.prototype.generateRandColor = function() {
   for (var i = this.n; i >= 0; i--) {
     randColor.push(randCol());
   }
 }
 
 //draw the domain name as a cricle shape around the domain
-Drawer.prototype.drawDomainName = function(){
+Drawer.prototype.drawDomainName = function() {
   var circle = {
-    x: canvas.width/2,
-    y: canvas.height/2,
+    x: canvas.width / 2,
+    y: canvas.height / 2,
     radius: this.length
   };
 
-  var unitAngle = Math.PI*2/(this.n * 5);
+  var unitAngle = Math.PI * 2 / (this.n * 5);
   for (var i = 0; i < this.n; i++) {
-   var domName = this.tags[i].Name;
-   var startAngle = Math.PI*2/this.n * i + unitAngle*2;
-   var endAngle = Math.PI*2/this.n * i + unitAngle*3;
-   drawCircularText(circle, domName, startAngle, endAngle);
- };
+    var domName = this.tags[i].Name;
+    var startAngle = Math.PI * 2 / this.n * i + unitAngle * 2;
+    var endAngle = Math.PI * 2 / this.n * i + unitAngle * 3;
+    drawCircularText(circle, domName, startAngle, endAngle);
+  };
 }
 
 //draw the domain name as a circle shape around the domain
-function drawCircularText(circle, string, startAngle, endAngle){
+function drawCircularText(circle, string, startAngle, endAngle) {
   var radius = circle.radius,
- // angleDecrement = (startAngle - endAngle)/(string.length - 1),
-  angleDecrement = -0.04,
-  angle = startAngle,
-  index = 0,
-  character,
-  fontSize = Math.min(canvas.height,canvas.width)/38 ; //adjust the font size according to the canvas size
+    // angleDecrement = (startAngle - endAngle)/(string.length - 1),
+    angleDecrement = -0.04,
+    angle = startAngle,
+    index = 0,
+    character,
+    fontSize = Math.min(canvas.height, canvas.width) / 38; //adjust the font size according to the canvas size
 
   context.save();
 
   context.fillStyle = 'rgba(0,0,0, 0.7)';
   context.font = fontSize + 'px Lucida Sans';
 
-  while(index < string.length){
+  while (index < string.length) {
     character = string.charAt(index);
     context.save();
     context.beginPath();
-    context.translate( Math.cos(angle) * radius,  Math.sin(angle) * radius );
-    context.rotate(Math.PI/2 + angle);
+    context.translate(Math.cos(angle) * radius, Math.sin(angle) * radius);
+    context.rotate(Math.PI / 2 + angle);
     context.fillText(character, 0, 0);
     angle -= angleDecrement;
     index++;
@@ -228,9 +206,8 @@ function drawCircularText(circle, string, startAngle, endAngle){
   context.restore();
 }
 
-
 //create the div DOM and append to the wrap div.
-function createDiv(){
+function createDiv() {
   var wrapDiv = document.getElementById('wrap');
   for (var i = 0; i < tagsObj.length; i++) {
     for (var j = 0; j < tagsObj[i].length; j++) {
@@ -241,54 +218,52 @@ function createDiv(){
         tag.setCoordinates();
         addListener(tag);
       };
-    }}
+    }
   }
+}
+
+function addListener(tag) {
+  object = tag.div;
+  var range = new rangeTangent(tag.n);
+  object.addEventListener('touchstart', function(event) {
+    touchStartHandler(tag, event);
+  }, false);
 
 
-  function addListener(tag){
-    object = tag.div;
-    var range = new rangeTangent(tag.n);
-    object.addEventListener('touchstart', function(event){
-      touchStartHandler(tag, event);
-    },false);
+  object.addEventListener('touchmove', function(event) {
+    tagsObj = touchMoveHandler(range, tag, tagsObj, event);
+  }, false);
 
 
-    object.addEventListener('touchmove', function(event){
-      tagsObj = touchMoveHandler(range, tag, tagsObj, event);
-    },false);
-
-
-    object.addEventListener('touchend',function(event){
-     result = touchEndHandler(tagsObj, tag, event);
-     tagsObj = result.obj;
-     if(result.isSend ){
-        notifyUpdate(tagsObj);//notify the update
-     }
-   },false); 
-  }
-
+  object.addEventListener('touchend', function(event) {
+    result = touchEndHandler(tagsObj, tag, event);
+    tagsObj = result.obj;
+    if (result.isSend) {
+      notifyUpdate(tagsObj); //notify the update
+    }
+  }, false);
+}
 
 /*third phases. Redraw the tags with new ranking
   updateObj is an array of objects which contains tags' new ranking in each domain
 */
-Drawer.prototype.redraw = function(updateObj){
-    for (var i = 0; i < updateObj.length; i++) {
-      var tagsInRanki = updateObj[i].Tags;
-      for (var j = 0; j < tagsInRanki.length; j++) {
-        var tagName = tagsInRanki[j].Name;
-        if(tagName == "")
-          tagName += i;
-        var newRanking = tagsInRanki[j].NewRanking;
-        var tag = tagHashMap[tagName];
-        tag.saveRegion = tagsInRanki[j].SafeRegion;
-        if(tag.rank != newRanking)
-          tag.setToRanking(newRanking);
-      };
+Drawer.prototype.redraw = function(updateObj) {
+  for (var i = 0; i < updateObj.length; i++) {
+    var tagsInRanki = updateObj[i].Tags;
+    for (var j = 0; j < tagsInRanki.length; j++) {
+      var tagName = tagsInRanki[j].Name;
+      if (tagName == "")
+        tagName += i;
+      var newRanking = tagsInRanki[j].NewRanking;
+      var tag = tagHashMap[tagName];
+      tag.saveRegion = tagsInRanki[j].SafeRegion;
+      if (tag.rank != newRanking)
+        tag.setToRanking(newRanking);
     };
+  };
 }
 
-
-function createFullTextDiv(tag){
+function createFullTextDiv(tag) {
   var div = tag.div;
   var fullTextDiv = document.createElement("p");
   var wrapDiv = document.getElementById('wrap');
@@ -297,8 +272,10 @@ function createFullTextDiv(tag){
   fullTextDiv.style.left = div.style.left;
   fullTextDiv.style.top = abstractNumberFromStyle(div.style.top) - 55;
   fullTextDiv.innerHTML = tag.text;
- 
+
   wrap.appendChild(fullTextDiv);
 
-  setTimeout(function(){ wrap.removeChild(fullTextDiv); }, 1000);
+  setTimeout(function() {
+    wrap.removeChild(fullTextDiv);
+  }, 1000);
 }

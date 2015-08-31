@@ -1,6 +1,6 @@
 var tbody = document.getElementById("tableBody");
 
-function parseResults(resultsObj){
+function parseResults(resultsObj) {
 	removeExistingResults();
 	for (var i = 0; i < resultsObj.length; i++) {
 		var row = document.createElement("tr");
@@ -16,8 +16,8 @@ function parseResults(resultsObj){
 }
 
 //create and return the first column with image
-function addFirstColumn(result){
-	var tdImg =  document.createElement("td");
+function addFirstColumn(result) {
+	var tdImg = document.createElement("td");
 	var firstDiv = document.createElement("div");
 	var image = document.createElement("img");
 
@@ -32,12 +32,12 @@ function addFirstColumn(result){
 }
 
 
-function addSecondColumn(result){
-	var tdInfo =  document.createElement("td");
-	var nameDiv =  document.createElement("div");
-	var attriDiv =  document.createElement("div");
+function addSecondColumn(result) {
+	var tdInfo = document.createElement("td");
+	var nameDiv = document.createElement("div");
+	var attriDiv = document.createElement("div");
 	var strongDiv = document.createElement("strong");
-	
+
 
 	nameDiv.innerHTML = result.Name + "   " + result.ID;
 	nameDiv.classList.add("rankedItemInfo");
@@ -45,17 +45,16 @@ function addSecondColumn(result){
 	var tagsString = "";
 	var isMore = false;
 	for (var j = 0; j < result.Attributes.length; j++) {
-		if(j < 2){
+		if (j < 2) {
 			tagsString += result.Attributes[j];
 			tagsString += "  ";
 		}
 		//if exceed 2, display more 
-		else if(j >= 2){
-			if(j == 2){
+		else if (j >= 2) {
+			if (j == 2) {
 				strongDiv.innerHTML = tagsString;
 				tagsString = "";
-			}
-			else{
+			} else {
 				isMore = true;
 				tagsString += result.Attributes[j];
 				tagsString += "  ";
@@ -65,8 +64,8 @@ function addSecondColumn(result){
 	strongDiv.classList.add("attributes");
 	attriDiv.appendChild(strongDiv);
 
-//add the more tag
-	if(isMore){
+	//add the more tag
+	if (isMore) {
 		var moreInfo = document.createElement("a");
 		moreInfo.href = "#";
 		moreInfo.title = tagsString;
@@ -74,8 +73,8 @@ function addSecondColumn(result){
 		attriDiv.appendChild(moreInfo);
 	}
 
-	
-	
+
+
 	attriDiv.classList.add("attrBlock");
 	//append child	
 	tdInfo.appendChild(nameDiv);
@@ -84,15 +83,15 @@ function addSecondColumn(result){
 	return tdInfo;
 }
 
-function addThirdColumn (result) {
+function addThirdColumn(result) {
 	var tdScore = document.createElement("td");
 	tdScore.innerHTML = result.Score;
 
 	return tdScore;
 }
 
-function removeExistingResults(){
+function removeExistingResults() {
 	while (tbody.firstChild) {
-	    tbody.removeChild(tbody.firstChild);
+		tbody.removeChild(tbody.firstChild);
 	}
 }
